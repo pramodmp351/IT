@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STACKLY | Client Dashboard</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      :root {
+        --lrm-blue-primary: #3b5cff;
+        --lrm-blue-gradient-end: #5b74ff;
+        --lrm-card-gradient-end: #2f46d9;
+        --lrm-dark-blue: #0b1c4a;
+        --lrm-btn-dark: #071a66;
+        --lrm-btn-hover: #061454;
+        --lrm-text-gray: #6c7a9c;
+        --lrm-bg-light: #f5f7fb;
+        --lrm-white: #ffffff;
+        --lrm-transition: 0.3s ease;
+        --lrm-shadow:
+          0 10px 25px -5px rgba(59, 92, 255, 0.1),
+          0 8px 10px -6px rgba(59, 92, 255, 0.1);
+        --lrm-sidebar-width: 260px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background-color: var(--lrm-bg-light);
+        color: var(--lrm-dark-blue);
+        overflow-x: hidden;
+        width: 100%;
+      }
+
+      /* Layout Structure */
+      .lrm-dashboard-wrapper {
+        display: flex;
+        min-height: 100vh;
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+
+      /* Sidebar Styling */
+      .lrm-sidebar {
+        width: var(--lrm-sidebar-width);
+        background: var(--lrm-dark-blue);
+        color: var(--lrm-white);
+        height: 100vh;
+        position: fixed;
+        left: -260px;
+        top: 0;
+        z-index: 1001; /* Higher than header */
+        display: flex;
+        flex-direction: column;
+        transition: left var(--lrm-transition);
+      }
+
+      .lrm-sidebar.active {
+        left: 0;
+      }
+
+      .lrm-sidebar-header {
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .lrm-logo-icon {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(
+          135deg,
+          var(--lrm-blue-primary),
+          var(--lrm-blue-gradient-end)
+        );
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .lrm-brand-name {
+        font-weight: 700;
+        font-size: 1.25rem;
+        letter-spacing: 1px;
+      }
+
+      .lrm-sidebar-nav {
+        flex: 1;
+        padding: 0 1rem;
+        overflow-y: auto;
+      }
+
+      .lrm-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 1rem;
+        border-radius: 10px;
+        color: var(--lrm-text-gray);
+        text-decoration: none;
+        margin-bottom: 5px;
+        transition: var(--lrm-transition);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .lrm-nav-item:hover,
+      .lrm-nav-item.active {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--lrm-white);
+      }
+
+      .lrm-nav-item.active {
+        background: var(--lrm-blue-primary);
+      }
+
+      .lrm-nav-item.active i,
+      .lrm-nav-item.active span {
+        color: var(--lrm-white);
+      }
+
+      .lrm-sidebar-footer {
+        padding: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      /* Main Content Area */
+      .lrm-main {
+        flex: 1;
+        width: 100%;
+        min-width: 0; /* Prevents flex children from overflowing */
+        transition: margin-left var(--lrm-transition);
+      }
+
+      /* Overlay */
+      .lrm-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+      }
+
+      .lrm-overlay.active {
+        display: block;
+      }
+
+      /* Header Styling */
+      .lrm-header {
+        height: 70px;
+        background: var(--lrm-white);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.25rem;
+        position: sticky;
+        top: 0;
+        z-index: 900;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        width: 100%;
+      }
+
+      .lrm-header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .lrm-menu-toggle {
+        background: #f0f2f5;
+        border: none;
+        cursor: pointer;
+        color: var(--lrm-dark-blue);
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .lrm-page-title {
+        font-weight: 600;
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
+      }
+
+      .lrm-header-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .lrm-user-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .lrm-user-email {
+        font-size: 0.8rem;
+        color: var(--lrm-text-gray);
+        display: none;
+      }
+
+      .lrm-avatar {
+        width: 32px;
+        height: 32px;
+        background: var(--lrm-blue-primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.75rem;
+        flex-shrink: 0;
+      }
+
+      /* Dashboard Sections */
+      .lrm-section {
+        padding: 1rem;
+        display: none;
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      .lrm-section.active {
+        display: block;
+      }
+
+      /* Stats Grid */
+      .lrm-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .lrm-stat-card {
+        background: var(--lrm-white);
+        padding: 1.25rem;
+        border-radius: 12px;
+        box-shadow: var(--lrm-shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .lrm-stat-label {
+        font-size: 0.75rem;
+        color: var(--lrm-text-gray);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .lrm-stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--lrm-dark-blue);
+      }
+
+      /* Charts Grid */
+      .lrm-charts-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .lrm-chart-card {
+        background: var(--lrm-white);
+        padding: 1.25rem;
+        border-radius: 12px;
+        box-shadow: var(--lrm-shadow);
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .lrm-chart-title {
+        font-weight: 600;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .lrm-chart-container {
+        position: relative;
+        width: 100%;
+        height: 250px; /* Explicit height for mobile stability */
+      }
+
+      /* Tables & Lists */
+      .lrm-table-container {
+        width: 100%;
+        overflow-x: auto; /* Handle horizontal overflow */
+        background: var(--lrm-white);
+        border-radius: 12px;
+        box-shadow: var(--lrm-shadow);
+        margin-bottom: 1.5rem;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 500px; /* Ensure content doesn't squeeze too much */
+      }
+
+      th {
+        text-align: left;
+        padding: 1rem;
+        background: #fcfdfe;
+        font-weight: 600;
+        font-size: 0.75rem;
+        color: var(--lrm-text-gray);
+        border-bottom: 1px solid #f0f2f5;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      td {
+        padding: 1rem;
+        border-bottom: 1px solid #f0f2f5;
+        font-size: 0.85rem;
+      }
+
+      /* Project Cards */
+      .lrm-projects-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .lrm-project-card {
+        background: var(--lrm-white);
+        padding: 1.25rem;
+        border-radius: 12px;
+        box-shadow: var(--lrm-shadow);
+      }
+
+      .lrm-project-status {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      .status-active {
+        background: #e6f9f0;
+        color: #00b050;
+      }
+      .status-pending {
+        background: #fff8e6;
+        color: #ffab00;
+      }
+
+      .lrm-progress-container {
+        height: 6px;
+        background: #f0f2f5;
+        border-radius: 10px;
+        margin: 0.75rem 0;
+        overflow: hidden;
+      }
+
+      .lrm-progress-bar {
+        height: 100%;
+        background: var(--lrm-blue-primary);
+      }
+
+      /* Buttons */
+      .lrm-btn {
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+
+      .lrm-btn-primary {
+        background: var(--lrm-blue-primary);
+        color: white;
+      }
+
+      /* Settings Forms */
+      .lrm-settings-form {
+        background: var(--lrm-white);
+        padding: 1.25rem;
+        border-radius: 12px;
+        box-shadow: var(--lrm-shadow);
+        width: 100%;
+      }
+
+      .lrm-form-group {
+        margin-bottom: 1.25rem;
+      }
+      .lrm-form-group label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+      .lrm-form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #e1e4e8;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        outline: none;
+      }
+
+      /* Desktop Breakpoints */
+      @media (min-width: 1024px) {
+        .lrm-sidebar {
+          left: 0;
+        }
+        .lrm-main {
+          margin-left: var(--lrm-sidebar-width);
+        }
+        .lrm-menu-toggle {
+          display: none;
+        }
+        .lrm-header {
+          padding: 0 2rem;
+        }
+        .lrm-section {
+          padding: 2rem;
+        }
+        .lrm-stats-grid {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.5rem;
+        }
+        .lrm-charts-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
+        }
+        .lrm-projects-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.5rem;
+        }
+        .lrm-user-email {
+          display: block;
+        }
+        .lrm-page-title {
+          font-size: 1.25rem;
+          max-width: none;
+        }
+        .lrm-chart-container {
+          height: 300px;
+        }
+        .lrm-settings-form {
+          max-width: 600px;
+          padding: 2rem;
+        }
+      }
+
+      @media (min-width: 768px) and (max-width: 1023px) {
+        .lrm-stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .lrm-projects-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .lrm-page-title {
+          max-width: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lrm-dashboard-wrapper">
+      <!-- Sidebar -->
+      <aside class="lrm-sidebar" id="sidebar">
+        <div class="lrm-sidebar-header">
+          <div class="lrm-logo-icon">
+            <i data-lucide="layers" style="width: 18px; color: white"></i>
+          </div>
+          <span class="lrm-brand-name">STACKLY</span>
+        </div>
+
+        <nav class="lrm-sidebar-nav">
+          <div class="lrm-nav-item active" data-section="dashboard">
+            <i data-lucide="layout-dashboard" style="width: 18px"></i>
+            <span>Dashboard</span>
+          </div>
+          <div class="lrm-nav-item" data-section="projects">
+            <i data-lucide="briefcase" style="width: 18px"></i>
+            <span>My Projects</span>
+          </div>
+          <div class="lrm-nav-item" data-section="messages">
+            <i data-lucide="mail" style="width: 18px"></i>
+            <span>Messages</span>
+          </div>
+          <div class="lrm-nav-item" data-section="billing">
+            <i data-lucide="credit-card" style="width: 18px"></i>
+            <span>Billing</span>
+          </div>
+          <div class="lrm-nav-item" data-section="support">
+            <i data-lucide="help-circle" style="width: 18px"></i>
+            <span>Support</span>
+          </div>
+          <div class="lrm-nav-item" data-section="settings">
+            <i data-lucide="settings" style="width: 18px"></i>
+            <span>Settings</span>
+          </div>
+        </nav>
+
+        <div class="lrm-sidebar-footer">
+          <div
+            class="lrm-nav-item"
+            onclick="window.location.href = './index.html'"
+          >
+            <i
+              data-lucide="log-out"
+              style="width: 18px"
+              onclick="window.location.href = './index.html'"
+            ></i>
+            <span onclick="window.location.href = './index.html'">Logout</span>
+          </div>
+        </div>
+      </aside>
+
+      <div class="lrm-overlay" id="overlay"></div>
+
+      <main class="lrm-main">
+        <!-- Header -->
+        <header class="lrm-header">
+          <div class="lrm-header-left">
+            <button class="lrm-menu-toggle" id="menuToggle">
+              <i data-lucide="menu" style="width: 20px"></i>
+            </button>
+            <h2 class="lrm-page-title" id="pageTitle">Dashboard</h2>
+          </div>
+          <div class="lrm-header-right">
+            <div class="lrm-user-info">
+              <span class="lrm-user-email" id="userEmail"
+                >client@stackly.io</span
+              >
+              <div class="lrm-avatar" id="userAvatar">JD</div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="lrm-section active">
+          <div class="lrm-stats-grid">
+            <div class="lrm-stat-card">
+              <span class="lrm-stat-label">Projects</span>
+              <div class="lrm-stat-value" data-value="12">0</div>
+            </div>
+            <div class="lrm-stat-card">
+              <span class="lrm-stat-label">Tickets</span>
+              <div class="lrm-stat-value" data-value="4">0</div>
+            </div>
+            <div class="lrm-stat-card">
+              <span class="lrm-stat-label">Invoices</span>
+              <div class="lrm-stat-value" data-value="28">0</div>
+            </div>
+            <div class="lrm-stat-card">
+              <span class="lrm-stat-label">Usage (GB)</span>
+              <div class="lrm-stat-value" data-value="142">0</div>
+            </div>
+          </div>
+
+          <div class="lrm-charts-grid">
+            <div class="lrm-chart-card">
+              <h3 class="lrm-chart-title">Status Overview</h3>
+              <div class="lrm-chart-container">
+                <canvas id="pieChart"></canvas>
+              </div>
+            </div>
+            <div class="lrm-chart-card">
+              <h3 class="lrm-chart-title">Weekly Resource Usage</h3>
+              <div class="lrm-chart-container">
+                <canvas id="barChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="lrm-chart-card">
+            <h3 class="lrm-chart-title">Project Growth</h3>
+            <div class="lrm-chart-container">
+              <canvas id="lineChart"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects" class="lrm-section">
+          <div class="lrm-projects-grid">
+            <div class="lrm-project-card">
+              <span class="lrm-project-status status-active">Active</span>
+              <h3>Cloud Migration</h3>
+              <div class="lrm-progress-container">
+                <div class="lrm-progress-bar" style="width: 75%"></div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 0.75rem;
+                "
+              >
+                <span>75% Complete</span>
+                <span>Oct 20</span>
+              </div>
+            </div>
+            <div class="lrm-project-card">
+              <span class="lrm-project-status status-pending">In Review</span>
+              <h3>Security Audit</h3>
+              <div class="lrm-progress-container">
+                <div class="lrm-progress-bar" style="width: 90%"></div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 0.75rem;
+                "
+              >
+                <span>90% Complete</span>
+                <span>Oct 12</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Other Sections (Table based) -->
+        <section id="messages" class="lrm-section">
+          <div class="lrm-table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>From</th>
+                  <th>Subject</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Support</td>
+                  <td>RE: Migration</td>
+                  <td>2h ago</td>
+                  <td>
+                    <button
+                      class="lrm-btn lrm-btn-primary"
+                      onclick="window.location.href = './404.html'"
+                    >
+                      Reply
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="billing" class="lrm-section">
+          <div class="lrm-table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Invoice</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Download</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#INV-001</td>
+                  <td>$499.00</td>
+                  <td>Paid</td>
+                  <td>
+                    <i
+                      data-lucide="download"
+                      style="width: 16px; cursor: pointer"
+                      onclick="window.location.href = './404.html'"
+                    ></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="support" class="lrm-section">
+          <div class="lrm-table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Issue</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#882</td>
+                  <td>Latency</td>
+                  <td>Open</td>
+                  <td>
+                    <button
+                      class="lrm-btn lrm-btn-primary"
+                      onclick="window.location.href = './404.html'"
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="settings" class="lrm-section">
+          <div class="lrm-settings-form">
+            <div class="lrm-form-group">
+              <label>Client Name</label>
+              <input type="text" class="lrm-form-control" value="John Doe" />
+            </div>
+            <div class="lrm-form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                class="lrm-form-control"
+                id="settingsEmail"
+                readonly
+              />
+            </div>
+            <button
+              class="lrm-btn lrm-btn-primary"
+              style="width: 100%; justify-content: center"
+              onclick="window.location.href = './404.html'"
+            >
+              Save
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const initUser = () => {
+        const userData = JSON.parse(localStorage.getItem("user")) || {
+          email: "client@stackly.io",
+        };
+        document.getElementById("userEmail").textContent = userData.email;
+        document.getElementById("settingsEmail").value = userData.email;
+        document.getElementById("userAvatar").textContent = userData.email
+          .substring(0, 2)
+          .toUpperCase();
+      };
+
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      const menuToggle = document.getElementById("menuToggle");
+      const pageTitle = document.getElementById("pageTitle");
+
+      menuToggle.onclick = () => {
+        sidebar.classList.add("active");
+        overlay.classList.add("active");
+      };
+
+      overlay.onclick = () => {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+      };
+
+      document.querySelectorAll(".lrm-nav-item").forEach((item) => {
+        item.onclick = () => {
+          const sectionId = item.getAttribute("data-section");
+          if (!sectionId) return;
+
+          document
+            .querySelectorAll(".lrm-nav-item")
+            .forEach((i) => i.classList.remove("active"));
+          item.classList.add("active");
+
+          document.querySelectorAll(".lrm-section").forEach((s) => {
+            s.classList.remove("active");
+            if (s.id === sectionId) {
+              s.classList.add("active");
+              pageTitle.textContent = item.querySelector("span").textContent;
+              gsap.from(s, { opacity: 0, y: 10, duration: 0.3 });
+            }
+          });
+
+          if (window.innerWidth < 1024) {
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+          }
+        };
+      });
+
+      const initCharts = () => {
+        const chartOptions = {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: { boxWidth: 10, font: { size: 10 } },
+            },
+          },
+        };
+
+        new Chart(document.getElementById("pieChart"), {
+          type: "doughnut",
+          data: {
+            labels: ["Done", "Pending", "Delay"],
+            datasets: [
+              {
+                data: [15, 8, 2],
+                backgroundColor: ["#3b5cff", "#5b74ff", "#ff5b5b"],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: chartOptions,
+        });
+
+        new Chart(document.getElementById("barChart"), {
+          type: "bar",
+          data: {
+            labels: ["W1", "W2", "W3", "W4"],
+            datasets: [
+              {
+                label: "GB",
+                data: [45, 60, 55, 80],
+                backgroundColor: "#3b5cff",
+                borderRadius: 4,
+              },
+            ],
+          },
+          options: chartOptions,
+        });
+
+        new Chart(document.getElementById("lineChart"), {
+          type: "line",
+          data: {
+            labels: ["M", "T", "W", "T", "F", "S", "S"],
+            datasets: [
+              {
+                label: "Activity",
+                data: [10, 30, 25, 50, 45, 70, 60],
+                borderColor: "#3b5cff",
+                tension: 0.4,
+                fill: true,
+                backgroundColor: "rgba(59, 92, 255, 0.05)",
+              },
+            ],
+          },
+          options: chartOptions,
+        });
+      };
+
+      const animateStats = () => {
+        document.querySelectorAll(".lrm-stat-value").forEach((el) => {
+          const target = parseInt(el.dataset.value);
+          let obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 1.5,
+            onUpdate: () => (el.textContent = Math.ceil(obj.val)),
+          });
+        });
+      };
+
+      const logout = () => {
+        localStorage.removeItem("user");
+        window.location.href = "./index.html";
+      };
+
+      window.onload = () => {
+        lucide.createIcons();
+        initUser();
+        initCharts();
+        animateStats();
+      };
+    </script>
+  </body>
+</html>

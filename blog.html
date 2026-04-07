@@ -1,0 +1,1116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Details | Stackly E-Learning</title>
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./footer.css" />
+    <style>
+      :root {
+        --primary-blue: #0066ff;
+        --dark-blue: #004ecc;
+        --accent-orange: #ff8a00;
+        --bg-dark: #121212;
+        --text-main: #1a1a1a;
+        --text-gray: #6b7280;
+        --top-bar-bg: linear-gradient(
+          90deg,
+          #0052d4 0%,
+          #4364f7 50%,
+          #6fb1fc 100%
+        );
+        --mobile-border: rgba(255, 255, 255, 0.1);
+        --dropdown-bg: #ffffff;
+        --sidebar-bg: #f7f8fc;
+        --input-bg: #f7f7f7;
+        --btn-gradient: linear-gradient(90deg, #4364f7, #304ffe);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: #ffffff;
+        color: var(--text-main);
+        overflow-x: hidden;
+      }
+
+      /* --- HERO SECTION --- */
+      .hero {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        background: url("./assets//hero.webp") no-repeat center center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      @media (min-width: 1024px) {
+        .hero {
+          height: 260px;
+        }
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 80, 0.75);
+        z-index: 1;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+        padding-top: 20px;
+      }
+
+      .hero-title {
+        font-size: 32px;
+        font-weight: 700;
+      }
+
+      @media (min-width: 768px) {
+        .hero-title {
+          font-size: 48px;
+        }
+      }
+
+      .breadcrumb {
+        margin-top: 10px;
+        font-size: 14px;
+        opacity: 0.9;
+        font-weight: 400;
+      }
+
+      /* --- MAIN LAYOUT --- */
+      .main-container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 40px 20px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      @media (min-width: 1024px) {
+        .main-container {
+          grid-template-columns: 1fr 380px;
+          padding: 80px 20px;
+        }
+      }
+
+      /* --- BLOG CONTENT --- */
+      .blog-article {
+        overflow: hidden;
+      }
+
+      .feature-image {
+        width: 100%;
+        border-radius: 30px 30px 30px 100px;
+        margin-bottom: 24px;
+        object-fit: cover;
+        aspect-ratio: 16/9;
+      }
+
+      .meta-row {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        font-size: 14px;
+        color: var(--text-gray);
+        margin-bottom: 20px;
+      }
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .meta-item i,
+      .meta-item svg {
+        width: 16px;
+        height: 16px;
+        color: var(--primary-blue);
+      }
+
+      .divider {
+        height: 1px;
+        background: #eee;
+        margin: 20px 0 30px;
+      }
+
+      .blog-text {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 18px;
+      }
+
+      .image-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin: 30px 0;
+      }
+
+      @media (min-width: 768px) {
+        .image-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .grid-img {
+        width: 100%;
+        border-radius: 30px 30px 30px 100px;
+        object-fit: cover;
+        aspect-ratio: 4/3;
+      }
+
+      .quote-box {
+        background: #f5f7ff;
+        padding: 24px;
+        border-radius: 16px;
+        margin: 30px 0;
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+
+      .quote-icon {
+        color: var(--primary-blue);
+        opacity: 0.3;
+        flex-shrink: 0;
+      }
+
+      .quote-text {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.6;
+        font-style: italic;
+      }
+
+      /* Tags & Share */
+      .bottom-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 30px 0;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 40px;
+      }
+
+      @media (min-width: 768px) {
+        .bottom-meta {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+
+      .tag-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .tag-pill {
+        padding: 8px 16px;
+        border: 1px solid #eee;
+        border-radius: 30px;
+        font-size: 14px;
+        color: #555;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+      .tag-pill:hover {
+        background: var(--primary-blue);
+        color: white;
+        border-color: var(--primary-blue);
+      }
+
+      .share-icons {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+      .share-icons h5 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-right: 5px;
+      }
+      .share-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #f0f2f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #555;
+        transition: 0.3s;
+        text-decoration: none;
+      }
+      .share-btn:hover {
+        background: var(--primary-blue);
+        color: white;
+        transform: translateY(-3px);
+      }
+
+      /* Comment Form */
+      .comment-area {
+        margin-top: 50px;
+      }
+      .comment-title {
+        font-size: 26px;
+        font-weight: 600;
+        margin-bottom: 30px;
+      }
+
+      .comment-form {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      @media (min-width: 768px) {
+        .comment-form {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .form-input {
+        height: 56px;
+        border-radius: 10px;
+        background: var(--input-bg);
+        padding: 0 16px;
+        border: none;
+        font-size: 15px;
+        width: 100%;
+      }
+
+      .form-textarea {
+        height: 160px;
+        padding-top: 16px;
+        grid-column: 1 / -1;
+        resize: none;
+      }
+
+      .form-input:focus {
+        outline: 2px solid var(--primary-blue);
+      }
+
+      .submit-btn {
+        background: var(--btn-gradient);
+        color: white;
+        padding: 14px 26px;
+        border-radius: 12px 12px 12px 28px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        width: fit-content;
+        margin-top: 10px;
+        transition: 0.3s;
+        display: block;
+        z-index: 10;
+      }
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(48, 79, 254, 0.2);
+      }
+
+      /* --- SIDEBAR --- */
+      .sidebar-card {
+        background: var(--sidebar-bg);
+        padding: 26px;
+        border-radius: 18px;
+        margin-bottom: 30px;
+      }
+
+      .sidebar-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+      .sidebar-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: var(--primary-blue);
+      }
+
+      /* Search */
+      .search-box {
+        display: flex;
+      }
+      .search-input {
+        flex: 1;
+        height: 50px;
+        border-radius: 8px 0 0 8px;
+        border: 1px solid #ddd;
+        border-right: none;
+        padding: 0 15px;
+      }
+      .search-btn {
+        width: 50px;
+        background: var(--primary-blue);
+        color: white;
+        border: none;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Categories */
+      .category-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 14px 16px;
+        background: white;
+        border-radius: 10px;
+        margin-bottom: 12px;
+        text-decoration: none;
+        color: var(--text-main);
+        font-size: 14px;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+      .category-item:hover {
+        transform: translateX(5px);
+        color: var(--primary-blue);
+      }
+      .cat-count {
+        opacity: 0.6;
+      }
+
+      /* Recent Posts */
+      .recent-post {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        align-items: center;
+      }
+      .recent-thumb {
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+      .recent-info h4 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        cursor: pointer;
+      }
+      .recent-info h4:hover {
+        color: var(--primary-blue);
+      }
+      .recent-date {
+        font-size: 12px;
+        color: #777;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      /* Tag Cloud */
+      .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .sidebar-tag {
+        padding: 8px 14px;
+        border-radius: 20px;
+        border: 1px solid #ddd;
+        font-size: 13px;
+        text-decoration: none;
+        color: #555;
+        background: white;
+        transition: 0.3s;
+      }
+      .sidebar-tag:hover {
+        background: var(--primary-blue);
+        color: white;
+        border-color: var(--primary-blue);
+      }
+
+      /* Scroll Top */
+      #scroll-top {
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        width: 44px;
+        height: 44px;
+        background: var(--primary-blue);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 99;
+        transition: 0.3s;
+      }
+      #scroll-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Ensure animations don't hide items forever */
+      .reveal {
+        opacity: 1;
+        visibility: visible;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Overlay -->
+    <div class="xyz-overlay" id="xyzOverlay"></div>
+
+    <!-- Top Bar -->
+    <div class="xyz-topbar">
+      <div class="xyz-topbar-left">
+        <a href="./404.html" class="xyz-topbar-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>(00) 875 784 5682</span>
+        </a>
+        <div class="xyz-divider"></div>
+        <a href="./404.html" class="xyz-topbar-item">
+          <i class="fas fa-envelope"></i>
+          <span>stackly@gmail.com</span>
+        </a>
+      </div>
+      <div class="xyz-topbar-right">
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </div>
+    </div>
+
+    <!-- Header / Main Nav -->
+    <header class="xyz-header">
+      <a href="./index.html" class="xyz-logo-block">
+        <svg
+          class="xyz-logo-icon-svg"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="20" cy="20" r="20" fill="white" fill-opacity="0.2" />
+          <path
+            d="M20 5L23.5 16.5L35 20L23.5 23.5L20 35L16.5 23.5L5 20L16.5 16.5L20 5Z"
+            fill="white"
+          />
+        </svg>
+        <span class="xyz-logo-text">STACKLY</span>
+      </a>
+
+      <nav class="xyz-navbar-menu">
+        <a href="./index.html" class="xyz-nav-link">HOME</a>
+        <a href="./about.html" class="xyz-nav-link">ABOUT US</a>
+        <a href="./service.html" class="xyz-nav-link">SERVICES</a>
+        <!-- <a href="#" class="xyz-nav-link">Pages</a> -->
+        <a href="./blog.html" class="xyz-nav-link">BLOGS</a>
+        <a href="./contact.html" class="xyz-nav-link">CONTACT</a>
+      </nav>
+
+      <div class="xyz-navbar-actions">
+        <a href="./login.html" class="xyz-cta-btn">LOGIN</a>
+        <button class="xyz-hamburger" id="xyzHamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Sidebar Right Panel -->
+    <aside class="xyz-sidebar" id="xyzSidebar">
+      <div class="xyz-sidebar-inner">
+        <div class="xyz-sidebar-header">
+          <a
+            href="./index.html"
+            style="display: flex; align-items: center; text-decoration: none"
+          >
+            <svg
+              class="xyz-logo-icon-svg"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="20" cy="20" r="20" fill="white" fill-opacity="0.2" />
+              <path
+                d="M20 5L23.5 16.5L35 20L23.5 23.5L20 35L16.5 23.5L5 20L16.5 16.5L20 5Z"
+                fill="white"
+              />
+            </svg>
+            <span class="xyz-logo-text">STACKLY</span>
+          </a>
+          <i class="fas fa-times xyz-sidebar-close" id="xyzSidebarClose"></i>
+        </div>
+
+        <p class="xyz-sidebar-desc">
+          Suspendisse interdum consectetur libero id. Fermentum leo vel orci
+          porta non. Euismod viverra nibh cras pulvinar suspen.
+        </p>
+
+        <div class="xyz-sidebar-menu-list">
+          <a href="./index.html" class="xyz-sidebar-menu-item">
+            <span>HOME</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <a
+            href="./about.html"
+            class="xyz-sidebar-menu-item"
+            style="color: var(--xyz-blue-primary)"
+          >
+            <span>ABOUT US</span>
+          </a>
+          <a href="./service.html" class="xyz-sidebar-menu-item">
+            <span>SERVICES</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <!-- <a href="#" class="xyz-sidebar-menu-item">
+            <span>Pages</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a> -->
+          <a href="./blog.html" class="xyz-sidebar-menu-item">
+            <span>BLOG</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <a href="./contact.html" class="xyz-sidebar-menu-item">
+            <span>CONTACT</span>
+          </a>
+        </div>
+
+        <div class="xyz-sidebar-contact-section">
+          <h3 class="xyz-sidebar-contact-title">Get In Touch</h3>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Email</p>
+              <a href="mailto:hello@yourmail.com" class="xyz-contact-info-value"
+                >hello@yourmail.com</a
+              >
+            </div>
+          </div>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Phone</p>
+              <p class="xyz-contact-info-value">(00) 456 1122 7890</p>
+            </div>
+          </div>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Location</p>
+              <p class="xyz-contact-info-value">
+                Riverside 255, San Francisco, USA
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Blog Details</h1>
+        <div class="breadcrumb">Home > Blog Details</div>
+      </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="main-container">
+      <!-- Left Article Section -->
+      <article class="blog-article">
+        <img
+          src="./assets/b1.webp"
+          alt="Feature"
+          class="feature-image reveal-scale"
+        />
+
+        <div class="meta-row reveal-up">
+          <div class="meta-item"><i data-lucide="user"></i> Admin</div>
+          <div class="meta-item">
+            <i data-lucide="calendar"></i> Oct 24, 2023
+          </div>
+          <div class="meta-item">
+            <i data-lucide="message-square"></i> 05 Comments
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="blog-content">
+          <p class="blog-text reveal-up">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+            vitae sem sed nisl pellentesque faucibus. Aliquam nec viverra dui.
+            Nulla facilisi. Mauris vulputate elementum neque, et efficitur
+            sapien tincidunt nec. In scelerisque luctus ex, non luctus enim.
+            Proin elementum, nisl ac varius egestas, dui felis pellentesque
+            felis, at interdum turpis magna ac felis.
+          </p>
+
+          <p class="blog-text reveal-up">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
+          </p>
+
+          <div class="image-grid">
+            <img
+              src="./assets/b2.webp"
+              alt="Grid 1"
+              class="grid-img reveal-scale"
+            />
+            <img
+              src="./assets/b3.webp"
+              alt="Grid 2"
+              class="grid-img reveal-scale"
+            />
+          </div>
+
+          <p class="blog-text reveal-up">
+            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+            posuere cubilia curae; Donec velit neque, auctor sit amet aliquam
+            vel, ullamcorper sit amet ligula. Nulla quis lorem ut libero
+            malesuada feugiat.
+          </p>
+
+          <div class="quote-box reveal-up">
+            <div class="quote-icon"><i data-lucide="quote" size="40"></i></div>
+            <p class="quote-text">
+              "Design is not just what it looks like and feels like. Design is
+              how it works. Success is a collection of problems solved."
+            </p>
+          </div>
+
+          <p class="blog-text reveal-up">
+            Sed porttitor lectus nibh. Quisque velit nisi, pretium ut lacinia
+            in, elementum id enim. Praesent sapien massa, convallis a
+            pellentesque nec, egestas non nisi. Mauris blandit aliquet elit,
+            eget tincidunt nibh pulvinar a.
+          </p>
+        </div>
+
+        <!-- Tags & Share -->
+        <div class="bottom-meta reveal-up">
+          <div class="tag-pills">
+            <a href="./404.html" class="tag-pill">JAVA</a>
+            <a href="./404.html" class="tag-pill">Education</a>
+            <a href="./404.html" class="tag-pill">Online</a>
+          </div>
+          <div class="share-icons">
+            <h5>Share:</h5>
+            <a href="./404.html" class="share-btn"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a href="./404.html" class="share-btn"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="./404.html" class="share-btn"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="./404.html" class="share-btn"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- Comment Form -->
+        <section class="comment-area">
+          <h3 class="comment-title reveal-up">Leave A Comment</h3>
+          <form class="comment-form" action="./404.html">
+            <input
+              type="text"
+              class="form-input reveal-up"
+              placeholder="Your Name *"
+            />
+            <input
+              type="email"
+              class="form-input reveal-up"
+              placeholder="Your Email *"
+            />
+            <textarea
+              class="form-input form-textarea reveal-up"
+              placeholder="Write Comment *"
+            ></textarea>
+            <!-- Fixed Submit Button -->
+            <button type="submit" class="submit-btn reveal-up">
+              Submit Message
+            </button>
+          </form>
+        </section>
+      </article>
+
+      <!-- Sidebar Section -->
+      <aside class="sidebar">
+        <!-- Search -->
+        <div class="sidebar-card reveal-right">
+          <h3 class="sidebar-title">Search</h3>
+          <div class="search-box">
+            <input type="text" class="search-input" placeholder="Search..." />
+            <button class="search-btn">
+              <i data-lucide="search" size="20"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="sidebar-card reveal-right">
+          <h3 class="sidebar-title">Categories</h3>
+          <div class="category-list">
+            <a href="./404.html" class="category-item">
+              <span>Web Development</span>
+              <span class="cat-count">(05)</span>
+            </a>
+            <a href="./404.html" class="category-item">
+              <span>Graphic Design</span>
+              <span class="cat-count">(03)</span>
+            </a>
+            <a href="./404.html" class="category-item">
+              <span>Digital Marketing</span>
+              <span class="cat-count">(08)</span>
+            </a>
+            <a href="./404.html" class="category-item">
+              <span>UI/UX Design</span>
+              <span class="cat-count">(04)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Recent Posts -->
+        <div class="sidebar-card reveal-right">
+          <h3 class="sidebar-title">Recent Posts</h3>
+          <div class="recent-posts">
+            <div class="recent-post">
+              <img src="./assets/b4.webp" alt="Post" class="recent-thumb" />
+              <div class="recent-info">
+                <h4 onclick="window.location.href = './404.html'">
+                  Standard Blog Post With Image
+                </h4>
+                <div class="recent-date">
+                  <i data-lucide="calendar" size="12"></i> Oct 20, 2023
+                </div>
+              </div>
+            </div>
+            <div class="recent-post">
+              <img src="./assets/b5.webp" alt="Post" class="recent-thumb" />
+              <div class="recent-info">
+                <h4 onclick="window.location.href = './404.html'">
+                  Creative Design Thinking Guide
+                </h4>
+                <div class="recent-date">
+                  <i data-lucide="calendar" size="12"></i> Oct 18, 2023
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="sidebar-card reveal-right">
+          <h3 class="sidebar-title">Popular Tags</h3>
+          <div class="tag-cloud">
+            <a href="./404.html" class="sidebar-tag">Tech</a>
+            <a href="./404.html" class="sidebar-tag">Info</a>
+            <a href="./404.html" class="sidebar-tag">Web</a>
+            <a href="./404.html" class="sidebar-tag">Design</a>
+          </div>
+        </div>
+      </aside>
+    </main>
+    <!-- Newsletter -->
+    <div class="stk-container">
+      <section class="stk-newsletter-wrapper">
+        <div class="stk-newsletter-card">
+          <h2 class="stk-newsletter-title">Subscribe to Our Newsletter</h2>
+          <form class="stk-newsletter-form" id="stk-form" action="./404.html">
+            <input
+              type="email"
+              class="stk-newsletter-input"
+              placeholder="Enter Your Email"
+              required
+            />
+            <button type="submit" class="stk-newsletter-btn">Submit Now</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="stk-footer">
+      <div class="stk-container">
+        <div class="stk-footer-grid">
+          <!-- Branding -->
+          <div class="stk-footer-col">
+            <a href="./index.html" class="stk-footer-logo-link">
+              <div class="stk-footer-logo-icon"></div>
+              STACKLY
+            </a>
+            <p class="stk-footer-about">
+              Each demo built with Teba will look different. You can customize
+              almost anything appearance of your website with only a few.
+            </p>
+            <div class="stk-footer-contact">
+              <a href="tel:1234567890" class="stk-footer-contact-item">
+                <i class="fa-solid fa-phone"></i>
+                123-456-7890
+              </a>
+              <a
+                href="mailto:techor@example.com"
+                class="stk-footer-contact-item"
+              >
+                <i class="fa-solid fa-envelope"></i>
+                techor@example.com
+              </a>
+            </div>
+          </div>
+
+          <!-- Links -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Quick Links</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./index.html" class="stk-footer-link">Home</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./about.html" class="stk-footer-link">About Us</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./service.html" class="stk-footer-link">Services</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./blog.html" class="stk-footer-link">Blogs</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./contact.html" class="stk-footer-link">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Services</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">UI/UX Design</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">App Development</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link"
+                  >Digital Marketing</a
+                >
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Web Development</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Cyber Security</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Information -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Information</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Working Process</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Privacy Policy</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link"
+                  >Terms & Conditions</a
+                >
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Faqs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="stk-footer-bottom">
+          <p class="stk-footer-copy">
+            &copy; 2026 <span>Stackly</span> All Rights Reserved, Created by
+            <span>StacklyIT</span>
+          </p>
+          <div class="stk-footer-socials">
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="stk-back-top" id="scrollTop">
+      <i class="fa-solid fa-chevron-up"></i>
+    </button>
+    <!-- Scroll Top Button -->
+    <!-- <button id="scroll-top"><i data-lucide="chevron-up"></i></button> -->
+    <script src="./nav.js"></script>
+    <script src="./footer.js"></script>
+    <script>
+      // Initialize Icons
+      lucide.createIcons();
+
+      // GSAP Animations
+      gsap.registerPlugin(ScrollTrigger);
+
+      window.onload = () => {
+        // 1. Hero Content Entrance
+        gsap.from(".hero-content", {
+          y: -50,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
+
+        // 2. Scale reveals
+        gsap.utils.toArray(".reveal-scale").forEach((el) => {
+          gsap.from(el, {
+            scrollTrigger: {
+              trigger: el,
+              start: "top 90%",
+            },
+            scale: 0.9,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+          });
+        });
+
+        // 3. Upward reveals (for paragraphs, form fields, and meta row)
+        gsap.utils.toArray(".reveal-up").forEach((el, index) => {
+          gsap.from(el, {
+            scrollTrigger: {
+              trigger: el,
+              start: "top 95%", // Made it trigger earlier to ensure bottom elements appear
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          });
+        });
+
+        // 4. Sidebar slide reveals
+        gsap.utils.toArray(".reveal-right").forEach((el, index) => {
+          gsap.from(el, {
+            scrollTrigger: {
+              trigger: el,
+              start: "top 90%",
+            },
+            x: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+          });
+        });
+      };
+
+      // Scroll to Top Logic
+      const scrollTopBtn = document.getElementById("scroll-top");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+          scrollTopBtn.classList.add("visible");
+        } else {
+          scrollTopBtn.classList.remove("visible");
+        }
+      });
+
+      scrollTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    </script>
+  </body>
+</html>

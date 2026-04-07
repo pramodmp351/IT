@@ -1,0 +1,1079 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services | Stackly E-Learning</title>
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      :root {
+        --primary-blue: #0066ff;
+        --dark-blue: #004ecc;
+        --accent-orange: #ff8a00;
+        --bg-dark: #121212;
+        --text-main: #1a1a1a;
+        --text-gray: #666666;
+        --section-padding: 100px 0;
+        --card-bg: #f7f8fc;
+        --btn-gradient: linear-gradient(90deg, #4364f7, #304ffe);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: #ffffff;
+        color: var(--text-main);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* --- HERO SECTION --- */
+      .hero {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        background: url("./assets/hero.webp") no-repeat center center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 30, 120, 0.75);
+        z-index: 1;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+        opacity: 0;
+      }
+
+      .hero-title {
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -1px;
+      }
+
+      .breadcrumb {
+        margin-top: 10px;
+        font-size: 14px;
+        opacity: 0.8;
+        font-weight: 500;
+      }
+
+      /* --- SERVICES GRID --- */
+      .services-section {
+        padding: var(--section-padding);
+        background: #fff;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .section-header span {
+        color: var(--primary-blue);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 2px;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .section-header h2 {
+        font-size: 36px;
+        font-weight: 700;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 30px;
+      }
+
+      .service-card {
+        background: var(--card-bg);
+        padding: 45px 35px;
+        border-radius: 30px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          box-shadow 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        z-index: 1;
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      /* Fill from Top Effect */
+      .service-card::before {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--btn-gradient);
+        transition: top 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+        z-index: -1;
+      }
+
+      .service-card:hover::before {
+        top: 0;
+      }
+
+      .service-card:hover {
+        color: white;
+        box-shadow: 0 20px 40px rgba(0, 102, 255, 0.2);
+      }
+
+      .icon-box {
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-blue);
+        margin-bottom: 25px;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .service-card:hover .icon-box {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .service-card h3 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .service-card p {
+        font-size: 15px;
+        color: var(--text-gray);
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      .service-card:hover p {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .read-more {
+        color: var(--primary-blue);
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .service-card:hover .read-more {
+        color: white;
+        padding-left: 5px;
+      }
+
+      /* --- PRICING SECTION --- */
+      .pricing-section {
+        padding: var(--section-padding);
+        background: #fafbff;
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .pricing-card {
+        background: white;
+        padding: 50px 40px;
+        border-radius: 30px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #eee;
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      .pricing-card.featured {
+        background: linear-gradient(180deg, #4364f7, #304ffe);
+        color: white;
+        border: none;
+        border-radius: 30px 30px 30px 100px;
+        z-index: 2;
+      }
+
+      .plan-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .price {
+        font-size: 52px;
+        font-weight: 700;
+        margin-bottom: 25px;
+      }
+
+      .price span {
+        font-size: 16px;
+        font-weight: 400;
+        opacity: 0.7;
+      }
+
+      .divider {
+        height: 1px;
+        background: #f0f0f0;
+        margin-bottom: 30px;
+      }
+
+      .pricing-card.featured .divider {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .features-list {
+        list-style: none;
+        margin-bottom: 40px;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        font-size: 16px;
+      }
+
+      .popular-badge {
+        position: absolute;
+        right: 30px;
+        top: 30px;
+        background: white;
+        color: var(--primary-blue);
+        padding: 8px 18px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 600;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-pricing {
+        width: 100%;
+        height: 56px;
+        border: none;
+        border-radius: 15px 15px 15px 35px;
+        background: var(--btn-gradient);
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .pricing-card.featured .btn-pricing {
+        background: white;
+        color: var(--primary-blue);
+      }
+
+      .btn-pricing:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      /* --- CTA SECTION --- */
+      .cta-section {
+        background: #0b1c6d;
+        padding: 120px 0;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        gap: 50px;
+        position: relative;
+        z-index: 2;
+      }
+
+      @media (min-width: 1024px) {
+        .cta-grid {
+          grid-template-columns: 1.2fr 1fr;
+        }
+      }
+
+      .cta-left h2 {
+        font-size: clamp(40px, 8vw, 80px);
+        font-weight: 700;
+        line-height: 1;
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+
+      .cta-right {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+
+      .btn-cta {
+        height: 60px;
+        padding: 0 40px;
+        border-radius: 15px 15px 15px 40px;
+        background: var(--btn-gradient);
+        color: white;
+        border: none;
+        font-weight: 600;
+        font-size: 17px;
+        cursor: pointer;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* Scroll Top */
+      #scroll-top {
+        position: fixed;
+        right: 40px;
+        bottom: 40px;
+        width: 50px;
+        height: 50px;
+        background: var(--primary-blue);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 100;
+        transition: 0.4s;
+        box-shadow: 0 10px 25px rgba(0, 102, 255, 0.3);
+      }
+
+      #scroll-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+      #scroll-top:hover {
+        transform: translateY(-5px);
+        background: var(--dark-blue);
+      }
+    </style>
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./footer.css" />
+  </head>
+  <body>
+    <!-- Overlay -->
+    <div class="xyz-overlay" id="xyzOverlay"></div>
+
+    <!-- Top Bar -->
+    <div class="xyz-topbar">
+      <div class="xyz-topbar-left">
+        <a href="./404.html" class="xyz-topbar-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>(00) 875 784 5682</span>
+        </a>
+        <div class="xyz-divider"></div>
+        <a href="./404.html" class="xyz-topbar-item">
+          <i class="fas fa-envelope"></i>
+          <span>stackly@gmail.com</span>
+        </a>
+      </div>
+      <div class="xyz-topbar-right">
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </div>
+    </div>
+
+    <!-- Header / Main Nav -->
+    <header class="xyz-header">
+      <a href="./index.html" class="xyz-logo-block">
+        <svg
+          class="xyz-logo-icon-svg"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="20" cy="20" r="20" fill="white" fill-opacity="0.2" />
+          <path
+            d="M20 5L23.5 16.5L35 20L23.5 23.5L20 35L16.5 23.5L5 20L16.5 16.5L20 5Z"
+            fill="white"
+          />
+        </svg>
+        <span class="xyz-logo-text">STACKLY</span>
+      </a>
+
+      <nav class="xyz-navbar-menu">
+        <a href="./index.html" class="xyz-nav-link">HOME</a>
+        <a href="./about.html" class="xyz-nav-link">ABOUT US</a>
+        <a href="./service.html" class="xyz-nav-link">SERVICES</a>
+        <!-- <a href="#" class="xyz-nav-link">Pages</a> -->
+        <a href="./blog.html" class="xyz-nav-link">BLOGS</a>
+        <a href="./contact.html" class="xyz-nav-link">CONTACT</a>
+      </nav>
+
+      <div class="xyz-navbar-actions">
+        <a href="./login.html" class="xyz-cta-btn">LOGIN</a>
+        <button class="xyz-hamburger" id="xyzHamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Sidebar Right Panel -->
+    <aside class="xyz-sidebar" id="xyzSidebar">
+      <div class="xyz-sidebar-inner">
+        <div class="xyz-sidebar-header">
+          <a
+            href="./index.html"
+            style="display: flex; align-items: center; text-decoration: none"
+          >
+            <svg
+              class="xyz-logo-icon-svg"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="20" cy="20" r="20" fill="white" fill-opacity="0.2" />
+              <path
+                d="M20 5L23.5 16.5L35 20L23.5 23.5L20 35L16.5 23.5L5 20L16.5 16.5L20 5Z"
+                fill="white"
+              />
+            </svg>
+            <span class="xyz-logo-text">STACKLY</span>
+          </a>
+          <i class="fas fa-times xyz-sidebar-close" id="xyzSidebarClose"></i>
+        </div>
+
+        <p class="xyz-sidebar-desc">
+          Suspendisse interdum consectetur libero id. Fermentum leo vel orci
+          porta non. Euismod viverra nibh cras pulvinar suspen.
+        </p>
+
+        <div class="xyz-sidebar-menu-list">
+          <a href="./index.html" class="xyz-sidebar-menu-item">
+            <span>HOME</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <a
+            href="./about.html"
+            class="xyz-sidebar-menu-item"
+            style="color: var(--xyz-blue-primary)"
+          >
+            <span>ABOUT US</span>
+          </a>
+          <a href="./service.html" class="xyz-sidebar-menu-item">
+            <span>SERVICES</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <!-- <a href="#" class="xyz-sidebar-menu-item">
+            <span>Pages</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a> -->
+          <a href="./blog.html" class="xyz-sidebar-menu-item">
+            <span>BLOG</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <a href="./contact.html" class="xyz-sidebar-menu-item">
+            <span>CONTACT</span>
+          </a>
+        </div>
+
+        <div class="xyz-sidebar-contact-section">
+          <h3 class="xyz-sidebar-contact-title">Get In Touch</h3>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Email</p>
+              <a href="mailto:hello@yourmail.com" class="xyz-contact-info-value"
+                >hello@yourmail.com</a
+              >
+            </div>
+          </div>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Phone</p>
+              <p class="xyz-contact-info-value">(00) 456 1122 7890</p>
+            </div>
+          </div>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Location</p>
+              <p class="xyz-contact-info-value">
+                Riverside 255, San Francisco, USA
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Our Expertise</h1>
+        <div class="breadcrumb">Empowering Growth > Digital Excellence</div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+      <div class="container">
+        <div class="section-header">
+          <span>Core Services</span>
+          <h2>What We Offer</h2>
+        </div>
+
+        <div class="services-grid">
+          <!-- 8 Cards Staggered -->
+          <div class="service-card">
+            <div class="icon-box"><i data-lucide="monitor"></i></div>
+            <h3>Web Development</h3>
+            <p>
+              High-performance websites built with the latest technologies for
+              maximum engagement.
+            </p>
+            <a href="./404.html" class="read-more"
+              >Learn More <i data-lucide="chevron-right" size="18"></i
+            ></a>
+          </div>
+          <div class="service-card">
+            <div class="icon-box"><i data-lucide="smartphone"></i></div>
+            <h3>Mobile Apps</h3>
+            <p>
+              Native and cross-platform apps that deliver seamless user
+              experiences on any device.
+            </p>
+            <a href="./404.html" class="read-more"
+              >Learn More <i data-lucide="chevron-right" size="18"></i
+            ></a>
+          </div>
+          <div class="service-card">
+            <div class="icon-box"><i data-lucide="layout"></i></div>
+            <h3>UX Strategy</h3>
+            <p>
+              Deep research and intuitive design to ensure your product
+              resonates with users.
+            </p>
+            <a href="./404.html" class="read-more"
+              >Learn More <i data-lucide="chevron-right" size="18"></i
+            ></a>
+          </div>
+          <div class="service-card">
+            <div class="icon-box"><i data-lucide="shield"></i></div>
+            <h3>Cyber Security</h3>
+            <p>
+              End-to-end protection for your data and infrastructure against
+              modern threats.
+            </p>
+            <a href="./404.html" class="read-more"
+              >Learn More <i data-lucide="chevron-right" size="18"></i
+            ></a>
+          </div>
+          <div class="service-card">
+            <div class="icon-box"><i data-lucide="cloud"></i></div>
+            <h3>Cloud Migration</h3>
+            <p>
+              Scalable cloud infrastructure designed to grow with your business
+              needs.
+            </p>
+            <a href="./404.html" class="read-more"
+              >Learn More <i data-lucide="chevron-right" size="18"></i
+            ></a>
+          </div>
+          <div class="service-card">
+            <div class="icon-box"><i data-lucide="trending-up"></i></div>
+            <h3>Digital Growth</h3>
+            <p>
+              Strategic marketing and SEO that drives traffic and converts leads
+              into customers.
+            </p>
+            <a href="./404.html" class="read-more"
+              >Learn More <i data-lucide="chevron-right" size="18"></i
+            ></a>
+          </div>
+          <div class="service-card">
+            <div class="icon-box"><i data-lucide="database"></i></div>
+            <h3>Big Data</h3>
+            <p>
+              Transforming complex data into actionable insights for smarter
+              decision making.
+            </p>
+            <a href="./404.html" class="read-more"
+              >Learn More <i data-lucide="chevron-right" size="18"></i
+            ></a>
+          </div>
+          <div class="service-card">
+            <div class="icon-box"><i data-lucide="cpu"></i></div>
+            <h3>AI Solutions</h3>
+            <p>
+              Custom artificial intelligence and machine learning models to
+              automate your workflow.
+            </p>
+            <a href="./404.html" class="read-more"
+              >Learn More <i data-lucide="chevron-right" size="18"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+      <div class="container">
+        <div class="section-header">
+          <span>Simple Pricing</span>
+          <h2>Plans for Everyone</h2>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <span class="plan-title">Startup</span>
+            <span class="price">$29 <span>/mo</span></span>
+            <div class="divider"></div>
+            <ul class="features-list">
+              <li class="feature-item">
+                <i data-lucide="check" size="18" color="#0066ff"></i> Core
+                Features
+              </li>
+              <li class="feature-item">
+                <i data-lucide="check" size="18" color="#0066ff"></i> 1 Project
+                License
+              </li>
+              <li class="feature-item">
+                <i data-lucide="check" size="18" color="#0066ff"></i> Email
+                Support
+              </li>
+            </ul>
+            <button
+              class="btn-pricing"
+              onclick="window.location.href = './404.html'"
+            >
+              Get Started
+            </button>
+          </div>
+
+          <div class="pricing-card featured">
+            <div class="popular-badge">Best Choice</div>
+            <span class="plan-title">Professional</span>
+            <span class="price">$59 <span>/mo</span></span>
+            <div class="divider"></div>
+            <ul class="features-list">
+              <li class="feature-item">
+                <i data-lucide="check" size="18"></i> All Startup Features
+              </li>
+              <li class="feature-item">
+                <i data-lucide="check" size="18"></i> 10 Project Licenses
+              </li>
+              <li class="feature-item">
+                <i data-lucide="check" size="18"></i> Priority Phone Support
+              </li>
+              <li class="feature-item">
+                <i data-lucide="check" size="18"></i> Analytics Dashboard
+              </li>
+            </ul>
+            <button
+              class="btn-pricing"
+              onclick="window.location.href = './404.html'"
+            >
+              Get Started
+            </button>
+          </div>
+
+          <div class="pricing-card">
+            <span class="plan-title">Enterprise</span>
+            <span class="price">$149 <span>/mo</span></span>
+            <div class="divider"></div>
+            <ul class="features-list">
+              <li class="feature-item">
+                <i data-lucide="check" size="18" color="#0066ff"></i> Unlimited
+                Projects
+              </li>
+              <li class="feature-item">
+                <i data-lucide="check" size="18" color="#0066ff"></i> Dedicated
+                Manager
+              </li>
+              <li class="feature-item">
+                <i data-lucide="check" size="18" color="#0066ff"></i> Custom
+                Security
+              </li>
+            </ul>
+            <button
+              class="btn-pricing"
+              onclick="window.location.href = './404.html'"
+            >
+              Contact Sales
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-grid">
+          <div class="cta-left">
+            <h2 class="cta-title">Let's Work<br />Together.</h2>
+          </div>
+          <div class="cta-right">
+            <p
+              style="
+                font-size: 18px;
+                line-height: 1.8;
+                opacity: 0.8;
+                margin-bottom: 35px;
+              "
+            >
+              Ready to elevate your digital presence? Join over 500+ successful
+              companies who chose Stackly for their digital transformation.
+            </p>
+            <button
+              class="btn-cta"
+              onclick="window.location.href = './404.html'"
+            >
+              Start Free Consultation <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Newsletter -->
+    <div class="stk-container">
+      <section class="stk-newsletter-wrapper">
+        <div class="stk-newsletter-card">
+          <h2 class="stk-newsletter-title">Subscribe to Our Newsletter</h2>
+          <form class="stk-newsletter-form" id="stk-form" action="./404.html">
+            <input
+              type="email"
+              class="stk-newsletter-input"
+              placeholder="Enter Your Email"
+              required
+            />
+            <button type="submit" class="stk-newsletter-btn">Submit Now</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="stk-footer">
+      <div class="stk-container">
+        <div class="stk-footer-grid">
+          <!-- Branding -->
+          <div class="stk-footer-col">
+            <a href="./index.html" class="stk-footer-logo-link">
+              <div class="stk-footer-logo-icon"></div>
+              STACKLY
+            </a>
+            <p class="stk-footer-about">
+              Each demo built with Teba will look different. You can customize
+              almost anything appearance of your website with only a few.
+            </p>
+            <div class="stk-footer-contact">
+              <a href="tel:1234567890" class="stk-footer-contact-item">
+                <i class="fa-solid fa-phone"></i>
+                123-456-7890
+              </a>
+              <a
+                href="mailto:techor@example.com"
+                class="stk-footer-contact-item"
+              >
+                <i class="fa-solid fa-envelope"></i>
+                techor@example.com
+              </a>
+            </div>
+          </div>
+
+          <!-- Links -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Quick Links</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./index.html" class="stk-footer-link">Home</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./about.html" class="stk-footer-link">About Us</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./service.html" class="stk-footer-link">Services</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./blog.html" class="stk-footer-link">Blogs</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./contact.html" class="stk-footer-link">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Services</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">UI/UX Design</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">App Development</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link"
+                  >Digital Marketing</a
+                >
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Web Development</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Cyber Security</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Information -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Information</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Working Process</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Privacy Policy</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link"
+                  >Terms & Conditions</a
+                >
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Faqs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="stk-footer-bottom">
+          <p class="stk-footer-copy">
+            &copy; 2026 <span>Stackly</span> All Rights Reserved, Created by
+            <span>StacklyIT</span>
+          </p>
+          <div class="stk-footer-socials">
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="stk-back-top" id="scrollTop">
+      <i class="fa-solid fa-chevron-up"></i>
+    </button>
+    <!-- <button id="scroll-top"><i data-lucide="arrow-up"></i></button> -->
+    <script src="./nav.js"></script>
+    <script src="./footer.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Initial Page Load Timeline
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+        tl.to(".hero-content", {
+          opacity: 1,
+          y: -20,
+          duration: 1.2,
+          delay: 0.3,
+        }).to(".section-header", { opacity: 1, y: 0, duration: 0.8 }, "-=0.8");
+
+        // 2. Service Cards Stagger
+        gsap.to(".service-card", {
+          scrollTrigger: {
+            trigger: ".services-grid",
+            start: "top 85%",
+          },
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.15,
+          ease: "power3.out",
+        });
+
+        // 3. Pricing Cards Reveal
+        gsap.to(".pricing-card", {
+          scrollTrigger: {
+            trigger: ".pricing-grid",
+            start: "top 80%",
+          },
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          stagger: 0.2,
+          ease: "back.out(1.4)",
+        });
+
+        // 4. CTA Left Title Slide (Parallax)
+        gsap.to(".cta-left h2", {
+          scrollTrigger: {
+            trigger: ".cta-section",
+            start: "top 90%",
+          },
+          opacity: 1,
+          x: 0,
+          duration: 1.5,
+          ease: "power4.out",
+        });
+
+        // 5. CTA Right Content Slide
+        gsap.to(".cta-right", {
+          scrollTrigger: {
+            trigger: ".cta-section",
+            start: "top 80%",
+          },
+          opacity: 1,
+          x: 0,
+          duration: 1.5,
+          ease: "power4.out",
+          delay: 0.2,
+        });
+
+        // 6. Global Hover Enhancements using GSAP for Pricing
+        const pCards = document.querySelectorAll(".pricing-card");
+        pCards.forEach((card) => {
+          card.addEventListener("mouseenter", () => {
+            gsap.to(card, { scale: 1.05, duration: 0.4, ease: "power2.out" });
+          });
+          card.addEventListener("mouseleave", () => {
+            // Return featured card to slightly larger, others to 1
+            const scaleVal = card.classList.contains("featured") ? 1.05 : 1;
+            gsap.to(card, {
+              scale: scaleVal,
+              duration: 0.4,
+              ease: "power2.out",
+            });
+          });
+        });
+
+        // 7. Scroll Top Button
+        const scrollBtn = document.getElementById("scroll-top");
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 600) scrollBtn.classList.add("visible");
+          else scrollBtn.classList.remove("visible");
+        });
+        scrollBtn.addEventListener("click", () => {
+          gsap.to(window, { scrollTo: 0, duration: 1, ease: "power3.inOut" });
+        });
+      });
+    </script>
+    <!-- Add ScrollToPlugin for smooth scrolling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stackly - Admin Dashboard</title>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --lrm-blue-primary: #3b5cff;
+        --lrm-blue-gradient-end: #5b74ff;
+        --lrm-card-gradient-end: #2f46d9;
+        --lrm-dark-blue: #0b1c4a;
+        --lrm-btn-dark: #071a66;
+        --lrm-btn-hover: #061454;
+        --lrm-text-gray: #6c7a9c;
+        --lrm-bg-light: #f5f7fb;
+        --lrm-white: #ffffff;
+        --lrm-transition: 0.3s ease;
+        --lrm-sidebar-width: 260px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Inter",
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--lrm-bg-light);
+        color: var(--lrm-dark-blue);
+        overflow-x: hidden;
+        display: block; /* Changed from flex to block for better mobile flow */
+        width: 100%;
+      }
+
+      /* --- SIDEBAR --- */
+      .lrm-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: var(--lrm-sidebar-width);
+        background: linear-gradient(
+          180deg,
+          var(--lrm-dark-blue) 0%,
+          var(--lrm-btn-dark) 100%
+        );
+        color: white;
+        z-index: 1001;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        padding: 24px;
+      }
+
+      .lrm-logo {
+        font-weight: 900;
+        letter-spacing: 2px;
+        font-size: 24px;
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .lrm-nav {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .lrm-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: var(--lrm-transition);
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .lrm-nav-item:hover,
+      .lrm-nav-item.lrm-active {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+
+      .lrm-nav-item.lrm-active {
+        background: var(--lrm-blue-primary);
+        box-shadow: 0 4px 15px rgba(59, 92, 255, 0.3);
+      }
+
+      /* --- MAIN CONTENT --- */
+      .lrm-main {
+        margin-left: var(--lrm-sidebar-width);
+        width: calc(100% - var(--lrm-sidebar-width));
+        min-height: 100vh;
+        padding: 20px;
+        transition: all 0.4s ease;
+        max-width: 100%;
+      }
+
+      /* --- HEADER --- */
+      .lrm-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        background: white;
+        padding: 12px 20px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        width: 100%;
+      }
+
+      .lrm-header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        overflow: hidden;
+      }
+
+      #pageTitle {
+        font-size: 1.1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .lrm-menu-toggle {
+        display: none;
+        cursor: pointer;
+        color: var(--lrm-dark-blue);
+        padding: 8px;
+        background: var(--lrm-bg-light);
+        border-radius: 8px;
+      }
+
+      .lrm-user-profile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+
+      .lrm-avatar {
+        width: 36px;
+        height: 36px;
+        background: var(--lrm-blue-primary);
+        color: white;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      .lrm-user-info {
+        display: none; /* Hidden on small mobile */
+      }
+
+      /* --- SECTIONS --- */
+      .lrm-section {
+        display: none;
+        animation: fadeIn 0.4s ease;
+      }
+
+      .lrm-section.lrm-active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* --- GRID SYSTEM --- */
+      .lrm-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-bottom: 24px;
+      }
+
+      .lrm-stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        border: 1px solid rgba(0, 0, 0, 0.02);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .lrm-stat-value {
+        font-size: 24px;
+        font-weight: 800;
+      }
+
+      /* --- CHARTS --- */
+      .lrm-charts-row {
+        display: grid;
+        grid-template-columns: 1fr; /* Default mobile single column */
+        gap: 20px;
+        margin-bottom: 24px;
+      }
+
+      .lrm-chart-container {
+        background: white;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        width: 100%;
+        overflow: hidden; /* Prevent canvas overflow */
+      }
+
+      canvas {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+
+      /* --- TABLES --- */
+      .lrm-table-card {
+        background: white;
+        padding: 20px;
+        border-radius: 20px;
+        width: 100%;
+        overflow-x: auto; /* Force horizontal scroll for wide tables */
+        -webkit-overflow-scrolling: touch;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 500px; /* Ensures table remains readable */
+      }
+
+      /* --- OVERLAY --- */
+      .lrm-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(11, 28, 74, 0.4);
+        backdrop-filter: blur(4px);
+        z-index: 1000;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      /* --- RESPONSIVE BREAKPOINTS --- */
+      @media (min-width: 768px) {
+        .lrm-user-info {
+          display: flex;
+          flex-direction: column;
+        }
+        .lrm-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .lrm-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .lrm-charts-row {
+          grid-template-columns: 2fr 1.2fr;
+        }
+      }
+
+      @media (max-width: 1023px) {
+        .lrm-sidebar {
+          transform: translateX(-100%);
+        }
+        .lrm-sidebar.lrm-open {
+          transform: translateX(0);
+        }
+        .lrm-main {
+          margin-left: 0;
+          width: 100%;
+        }
+        .lrm-menu-toggle {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .lrm-overlay.lrm-open {
+          display: block;
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lrm-overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="lrm-sidebar" id="sidebar">
+      <div class="lrm-logo">
+        <i data-lucide="layers" color="white"></i>
+        STACKLY
+      </div>
+      <nav class="lrm-nav">
+        <a href="#" class="lrm-nav-item lrm-active" data-section="dashboard">
+          <i data-lucide="layout-dashboard"></i> Dashboard
+        </a>
+        <!-- <a href="#" class="lrm-nav-item" data-section="analytics">
+          <i data-lucide="bar-chart-3"></i> Analytics
+        </a> -->
+        <a href="#" class="lrm-nav-item" data-section="users">
+          <i data-lucide="users"></i> Users
+        </a>
+        <a href="#" class="lrm-nav-item" data-section="messages">
+          <i data-lucide="mail"></i> Messages
+        </a>
+        <a href="#" class="lrm-nav-item" data-section="settings">
+          <i data-lucide="settings"></i> Settings
+        </a>
+      </nav>
+      <div
+        class="lrm-nav-item"
+        id="sidebarLogout"
+        style="
+          margin-top: auto;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          padding-top: 20px;
+        "
+      >
+        <i data-lucide="log-out"></i> Logout
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lrm-main">
+      <header class="lrm-header">
+        <div class="lrm-header-left">
+          <div class="lrm-menu-toggle" id="menuToggle">
+            <i data-lucide="menu"></i>
+          </div>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+        <div class="lrm-user-profile">
+          <div class="lrm-user-info" style="text-align: right">
+            <span
+              id="userEmail"
+              style="
+                font-weight: 600;
+                font-size: 13px;
+                color: var(--lrm-dark-blue);
+              "
+              >admin@stackly.com</span
+            >
+            <span style="font-size: 11px; color: var(--lrm-text-gray)"
+              >System Admin</span
+            >
+          </div>
+          <div class="lrm-avatar" id="userAvatar">AD</div>
+          <div class="lrm-menu-toggle" id="headerLogout">
+            <i data-lucide="log-out" size="18"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD SECTION -->
+      <section class="lrm-section lrm-active" id="section-dashboard">
+        <div class="lrm-grid">
+          <div class="lrm-stat-card">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+              "
+            >
+              <div
+                class="lrm-stat-label"
+                style="
+                  color: var(--lrm-text-gray);
+                  font-size: 13px;
+                  font-weight: 500;
+                "
+              >
+                Users
+              </div>
+              <i data-lucide="users" size="18" color="#3b5cff"></i>
+            </div>
+            <div class="lrm-stat-value counter" data-target="12840">0</div>
+            <div style="color: #10b981; font-size: 12px; font-weight: 600">
+              ↑ 12% from last month
+            </div>
+          </div>
+          <div class="lrm-stat-card">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+              "
+            >
+              <div
+                class="lrm-stat-label"
+                style="
+                  color: var(--lrm-text-gray);
+                  font-size: 13px;
+                  font-weight: 500;
+                "
+              >
+                Sessions
+              </div>
+              <i data-lucide="activity" size="18" color="#10b981"></i>
+            </div>
+            <div class="lrm-stat-value counter" data-target="342">0</div>
+            <div style="color: #10b981; font-size: 12px; font-weight: 600">
+              ↑ 5% active
+            </div>
+          </div>
+          <div class="lrm-stat-card">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+              "
+            >
+              <div
+                class="lrm-stat-label"
+                style="
+                  color: var(--lrm-text-gray);
+                  font-size: 13px;
+                  font-weight: 500;
+                "
+              >
+                Load
+              </div>
+              <i data-lucide="hard-drive" size="18" color="#f59e0b"></i>
+            </div>
+            <div class="lrm-stat-value">
+              <span class="counter" data-target="42">0</span>%
+            </div>
+            <div style="color: #ef4444; font-size: 12px; font-weight: 600">
+              Stable
+            </div>
+          </div>
+          <div class="lrm-stat-card">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+              "
+            >
+              <div
+                class="lrm-stat-label"
+                style="
+                  color: var(--lrm-text-gray);
+                  font-size: 13px;
+                  font-weight: 500;
+                "
+              >
+                Revenue
+              </div>
+              <i data-lucide="dollar-sign" size="18" color="#8b5cf6"></i>
+            </div>
+            <div class="lrm-stat-value">
+              $<span class="counter" data-target="84200">0</span>
+            </div>
+            <div style="color: #10b981; font-size: 12px; font-weight: 600">
+              ↑ 22% growth
+            </div>
+          </div>
+        </div>
+
+        <div class="lrm-charts-row">
+          <div class="lrm-chart-container">
+            <h3 style="margin-bottom: 20px; font-size: 15px; font-weight: 700">
+              Traffic Analytics
+            </h3>
+            <div style="width: 100%; height: 300px">
+              <canvas id="trafficChart"></canvas>
+            </div>
+          </div>
+          <div class="lrm-chart-container">
+            <h3 style="margin-bottom: 20px; font-size: 15px; font-weight: 700">
+              User Distribution
+            </h3>
+            <div
+              style="
+                width: 100%;
+                height: 300px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <canvas id="roleChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ANALYTICS SECTION -->
+      <!-- <section class="lrm-section" id="section-analytics">
+        <div class="lrm-chart-container">
+          <h3 style="margin-bottom: 20px">System Performance</h3>
+          <canvas id="performanceChart" height="150"></canvas>
+        </div>
+      </section> -->
+
+      <!-- USERS SECTION -->
+      <section class="lrm-section" id="section-users">
+        <div class="lrm-grid" id="usersList"></div>
+      </section>
+
+      <!-- MESSAGES SECTION -->
+      <section class="lrm-section" id="section-messages">
+        <div class="lrm-table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Sender</th>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div style="font-weight: 600">David Smith</div>
+                  <div style="font-size: 11px; color: var(--lrm-text-gray)">
+                    david@it.com
+                  </div>
+                </td>
+                <td>Network config</td>
+                <td>
+                  <span class="lrm-status-badge lrm-status-busy">High</span>
+                </td>
+                <td>
+                  <button
+                    style="
+                      padding: 6px 12px;
+                      border-radius: 8px;
+                      border: none;
+                      background: var(--lrm-blue-primary);
+                      color: white;
+                      cursor: pointer;
+                      font-size: 12px;
+                    "
+                    onclick="window.location.href = './404.html'"
+                  >
+                    Reply
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SETTINGS SECTION -->
+      <section class="lrm-section" id="section-settings">
+        <div class="lrm-chart-container" style="max-width: 500px">
+          <h3 style="margin-bottom: 20px">Profile Settings</h3>
+          <div style="display: flex; flex-direction: column; gap: 16px">
+            <div>
+              <label
+                style="
+                  font-size: 13px;
+                  font-weight: 600;
+                  display: block;
+                  margin-bottom: 6px;
+                "
+                >Admin Name</label
+              >
+              <input
+                type="text"
+                id="settingsNameInput"
+                value="Stackly Admin"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  border-radius: 8px;
+                  border: 1px solid #ddd;
+                "
+              />
+            </div>
+            <div>
+              <label
+                style="
+                  font-size: 13px;
+                  font-weight: 600;
+                  display: block;
+                  margin-bottom: 6px;
+                "
+                >Notifications</label
+              >
+              <select
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  border-radius: 8px;
+                  border: 1px solid #ddd;
+                "
+              >
+                <option>Enabled</option>
+                <option>Disabled</option>
+              </select>
+            </div>
+            <button
+              style="
+                background: var(--lrm-dark-blue);
+                color: white;
+                border: none;
+                padding: 12px;
+                border-radius: 10px;
+                font-weight: 600;
+                margin-top: 10px;
+                cursor: pointer;
+              "
+              onclick="window.location.href = './404.html'"
+            >
+              Save Settings
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      lucide.createIcons();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // User Session Loading
+        let user = { email: "admin@stackly.com" };
+        try {
+          const storedUser = localStorage.getItem("user");
+          if (storedUser) user = JSON.parse(storedUser);
+        } catch (e) {}
+
+        document.getElementById("userEmail").textContent = user.email;
+        document.getElementById("userAvatar").textContent = user.email
+          .substring(0, 2)
+          .toUpperCase();
+
+        // Mobile Navigation
+        const sidebar = document.getElementById("sidebar");
+        const menuToggle = document.getElementById("menuToggle");
+        const overlay = document.getElementById("overlay");
+
+        const toggleSidebar = () => {
+          sidebar.classList.toggle("lrm-open");
+          overlay.classList.toggle("lrm-open");
+        };
+
+        menuToggle.addEventListener("click", toggleSidebar);
+        overlay.addEventListener("click", toggleSidebar);
+
+        // Tab Switching
+        const navItems = document.querySelectorAll(
+          ".lrm-nav-item[data-section]",
+        );
+        const sections = document.querySelectorAll(".lrm-section");
+        const pageTitle = document.getElementById("pageTitle");
+
+        navItems.forEach((item) => {
+          item.addEventListener("click", (e) => {
+            e.preventDefault();
+            const sectionId = item.getAttribute("data-section");
+            navItems.forEach((i) => i.classList.remove("lrm-active"));
+            item.classList.add("lrm-active");
+            pageTitle.textContent = item.innerText.trim();
+            sections.forEach((s) => s.classList.remove("lrm-active"));
+            document
+              .getElementById(`section-${sectionId}`)
+              .classList.add("lrm-active");
+            if (window.innerWidth < 1024) toggleSidebar();
+          });
+        });
+
+        // Logout
+        const handleLogout = () => {
+          localStorage.removeItem("user");
+          window.location.href = "index.html";
+        };
+        document
+          .getElementById("sidebarLogout")
+          .addEventListener("click", handleLogout);
+        document
+          .getElementById("headerLogout")
+          .addEventListener("click", handleLogout);
+
+        // Stats Animation
+        const counters = document.querySelectorAll(".counter");
+        counters.forEach((counter) => {
+          const target = parseInt(counter.getAttribute("data-target"));
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 1.5,
+            onUpdate: () =>
+              (counter.innerText = Math.floor(obj.val).toLocaleString()),
+          });
+        });
+
+        // Charts
+        const chartOptions = {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+        };
+
+        new Chart(document.getElementById("trafficChart"), {
+          type: "line",
+          data: {
+            labels: ["S", "M", "T", "W", "T", "F", "S"],
+            datasets: [
+              {
+                data: [65, 80, 75, 95, 100, 85, 110],
+                borderColor: "#3b5cff",
+                backgroundColor: "rgba(59, 92, 255, 0.1)",
+                fill: true,
+                tension: 0.4,
+              },
+            ],
+          },
+          options: chartOptions,
+        });
+
+        new Chart(document.getElementById("roleChart"), {
+          type: "doughnut",
+          data: {
+            labels: ["Admin", "User"],
+            datasets: [
+              {
+                data: [30, 70],
+                backgroundColor: ["#0b1c4a", "#3b5cff"],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            ...chartOptions,
+            plugins: { legend: { display: true, position: "bottom" } },
+          },
+        });
+
+        // Mock Users
+        const usersList = document.getElementById("usersList");
+        ["Alice V.", "Bob M.", "Charlie K.", "Diana S."].forEach((name) => {
+          const card = document.createElement("div");
+          card.className = "lrm-stat-card";
+          card.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div class="lrm-avatar">${name.substring(0, 2)}</div>
+                        <div style="font-weight:600;">${name}</div>
+                    </div>
+                `;
+          usersList.appendChild(card);
+        });
+      });
+    </script>
+  </body>
+</html>

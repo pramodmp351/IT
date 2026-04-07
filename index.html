@@ -1,0 +1,1790 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stackly Hero Slider</title>
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./footer.css" />
+  </head>
+  <body>
+    <!-- Overlay -->
+    <div class="xyz-overlay" id="xyzOverlay"></div>
+
+    <!-- Top Bar -->
+    <div class="xyz-topbar">
+      <div class="xyz-topbar-left">
+        <a href="./404.html" class="xyz-topbar-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>(00) 875 784 5682</span>
+        </a>
+        <div class="xyz-divider"></div>
+        <a href="./404.html" class="xyz-topbar-item">
+          <i class="fas fa-envelope"></i>
+          <span>stackly@gmail.com</span>
+        </a>
+      </div>
+      <div class="xyz-topbar-right">
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </div>
+    </div>
+
+    <!-- Header / Main Nav -->
+    <header class="xyz-header">
+      <a href="./index.html" class="xyz-logo-block">
+        <svg
+          class="xyz-logo-icon-svg"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="20" cy="20" r="20" fill="white" fill-opacity="0.2" />
+          <path
+            d="M20 5L23.5 16.5L35 20L23.5 23.5L20 35L16.5 23.5L5 20L16.5 16.5L20 5Z"
+            fill="white"
+          />
+        </svg>
+        <span class="xyz-logo-text">STACKLY</span>
+      </a>
+
+      <nav class="xyz-navbar-menu">
+        <a href="./index.html" class="xyz-nav-link">HOME</a>
+        <a href="./about.html" class="xyz-nav-link">ABOUT US</a>
+        <a href="./service.html" class="xyz-nav-link">SERVICES</a>
+        <!-- <a href="#" class="xyz-nav-link">Pages</a> -->
+        <a href="./blog.html" class="xyz-nav-link">BLOGS</a>
+        <a href="./contact.html" class="xyz-nav-link">CONTACT</a>
+      </nav>
+
+      <div class="xyz-navbar-actions">
+        <a href="./login.html" class="xyz-cta-btn">LOGIN</a>
+        <button class="xyz-hamburger" id="xyzHamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Sidebar Right Panel -->
+    <aside class="xyz-sidebar" id="xyzSidebar">
+      <div class="xyz-sidebar-inner">
+        <div class="xyz-sidebar-header">
+          <a
+            href="./index.html"
+            style="display: flex; align-items: center; text-decoration: none"
+          >
+            <svg
+              class="xyz-logo-icon-svg"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="20" cy="20" r="20" fill="white" fill-opacity="0.2" />
+              <path
+                d="M20 5L23.5 16.5L35 20L23.5 23.5L20 35L16.5 23.5L5 20L16.5 16.5L20 5Z"
+                fill="white"
+              />
+            </svg>
+            <span class="xyz-logo-text">STACKLY</span>
+          </a>
+          <i class="fas fa-times xyz-sidebar-close" id="xyzSidebarClose"></i>
+        </div>
+
+        <p class="xyz-sidebar-desc">
+          Suspendisse interdum consectetur libero id. Fermentum leo vel orci
+          porta non. Euismod viverra nibh cras pulvinar suspen.
+        </p>
+
+        <div class="xyz-sidebar-menu-list">
+          <a href="./index.html" class="xyz-sidebar-menu-item">
+            <span>HOME</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <a
+            href="./about.html"
+            class="xyz-sidebar-menu-item"
+            style="color: var(--xyz-blue-primary)"
+          >
+            <span>ABOUT US</span>
+          </a>
+          <a href="./service.html" class="xyz-sidebar-menu-item">
+            <span>SERVICES</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <!-- <a href="#" class="xyz-sidebar-menu-item">
+            <span>Pages</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a> -->
+          <a href="./blog.html" class="xyz-sidebar-menu-item">
+            <span>BLOG</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <a href="./contact.html" class="xyz-sidebar-menu-item">
+            <span>CONTACT</span>
+          </a>
+        </div>
+
+        <div class="xyz-sidebar-contact-section">
+          <h3 class="xyz-sidebar-contact-title">Get In Touch</h3>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Email</p>
+              <a href="mailto:hello@yourmail.com" class="xyz-contact-info-value"
+                >hello@yourmail.com</a
+              >
+            </div>
+          </div>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Phone</p>
+              <p class="xyz-contact-info-value">(00) 456 1122 7890</p>
+            </div>
+          </div>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Location</p>
+              <p class="xyz-contact-info-value">
+                Riverside 255, San Francisco, USA
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <section class="abchero">
+      <div class="abcoverlay"></div>
+
+      <div class="abcslider">
+        <!-- Slide 1 -->
+        <div class="abcslide abcactive" data-index="0">
+          <img src="./assets/h1.webp" alt="Tech Office" />
+          <div class="abccontent">
+            <div class="abclabel">Innovation</div>
+            <h1 class="abctitle">Best IT Solution Agency For Your Business</h1>
+            <!-- <p class="abctext">
+              We provide cutting-edge technology solutions designed to scale
+              your operations and improve user engagement across all digital
+              touchpoints.
+            </p> -->
+            <a href="./404.html" class="abcbtn"
+              >Get Started <i data-lucide="arrow-right" size="20"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="abcslide" data-index="1">
+          <img src="./assets/h3.webp" alt="Digital Services" />
+          <div class="abccontent">
+            <div class="abclabel">Expertise</div>
+            <h1 class="abctitle">Modern Digital Services For Startups</h1>
+            <!-- <p class="abctext">
+              From MVP development to enterprise-level cloud infrastructure, our
+              team of experts helps startups navigate the complex digital
+              landscape.
+            </p> -->
+            <a href="./404.html" class="abcbtn"
+              >Our Services <i data-lucide="arrow-right" size="20"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="abcslide" data-index="2">
+          <img src="./assets/h2.webp" alt="Creative Tech" />
+          <div class="abccontent">
+            <div class="abclabel">Growth</div>
+            <h1 class="abctitle">Creative Technology Agency For Growth</h1>
+            <!-- <p class="abctext">
+              Empower your brand with data-driven strategies and creative
+              implementations that drive real business results and sustainable
+              growth.
+            </p> -->
+            <a href="./404.html" class="abcbtn"
+              >Contact Us <i data-lucide="arrow-right" size="20"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Pagination -->
+      <div class="abcpagination">
+        <div class="abcdot abcactiveDot" data-go="0">01</div>
+        <div class="abcdot" data-go="1">02</div>
+        <div class="abcdot" data-go="2">03</div>
+      </div>
+    </section>
+    <section class="defsection">
+      <div class="defcontainer">
+        <!-- Left Side: Images & Experience -->
+        <div class="defimagewrap">
+          <div class="deftallimg">
+            <img src="./assets/in1.webp" alt="Team Work" class="defimg" />
+          </div>
+
+          <div class="defexpbox">
+            <div class="defexpnum-wrap">
+              <span class="defexpnum" id="expCounter">0</span>
+              <span class="defexpyear">Years</span>
+            </div>
+            <div class="defexptitle">Of Experience In Digital Solutions</div>
+          </div>
+
+          <div class="defsmallimg">
+            <img src="./assets/in2.webp" alt="Meeting" class="defimg" />
+          </div>
+        </div>
+
+        <!-- Right Side: Content -->
+        <div class="defcontent">
+          <span class="deflabel">About Our Company</span>
+          <h2 class="deftitle">
+            We Are The Best IT Solution Agency For Your Business
+          </h2>
+          <p class="deftext">
+            At Stackly, we specialize in delivering innovative technology
+            solutions that empower businesses to thrive in the digital age. Our
+            team of experts combines creative thinking with technical
+            excellence.
+          </p>
+
+          <!-- Checklist -->
+          <div class="deflist">
+            <div class="deflistitem">
+              <div class="defcheck"><i data-lucide="check"></i></div>
+              24/7 System Monitoring
+            </div>
+            <div class="deflistitem">
+              <div class="defcheck"><i data-lucide="check"></i></div>
+              Expert Team Members
+            </div>
+            <div class="deflistitem">
+              <div class="defcheck"><i data-lucide="check"></i></div>
+              Cloud Infrastructure
+            </div>
+            <div class="deflistitem">
+              <div class="defcheck"><i data-lucide="check"></i></div>
+              Data Security & Privacy
+            </div>
+          </div>
+
+          <!-- CTA Row -->
+          <div class="defcta">
+            <a href="./404.html" class="defbtn"
+              >Discover More <i data-lucide="arrow-right" size="18"></i
+            ></a>
+
+            <div class="defphone">
+              <div class="defphoneicon">
+                <i data-lucide="phone-call" size="22"></i>
+              </div>
+              <div>
+                <span class="defphonetext">Call For Support</span>
+                <a href="tel:+123456789" class="defphonenumber">+123 456 789</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ghisection">
+      <div class="ghicontainer">
+        <div class="ghigrid">
+          <!-- Card 1 -->
+          <div class="ghicard">
+            <div class="ghicircle-wrap">
+              <div class="ghidashed"></div>
+              <svg class="ghisvg">
+                <circle class="ghiring-bg" cx="110" cy="110" r="105"></circle>
+                <circle
+                  class="ghiring-progress"
+                  cx="110"
+                  cy="110"
+                  r="105"
+                  data-percent="75"
+                ></circle>
+              </svg>
+              <div class="ghicircle">
+                <div class="ghicontent">
+                  <div class="ghinumber-wrap">
+                    <span class="ghinumber" data-target="25">0</span>
+                  </div>
+                  <div class="ghilabel">Years Experience</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="ghicard">
+            <div class="ghicircle-wrap">
+              <div class="ghidashed"></div>
+              <svg class="ghisvg">
+                <circle class="ghiring-bg" cx="110" cy="110" r="105"></circle>
+                <circle
+                  class="ghiring-progress"
+                  cx="110"
+                  cy="110"
+                  r="105"
+                  data-percent="97"
+                ></circle>
+              </svg>
+              <div class="ghicircle">
+                <div class="ghicontent">
+                  <div class="ghinumber-wrap">
+                    <span class="ghinumber" data-target="97">0</span>
+                    <span class="ghisuffix">%</span>
+                  </div>
+                  <div class="ghilabel">Retention Rate</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="ghicard">
+            <div class="ghicircle-wrap">
+              <div class="ghidashed"></div>
+              <svg class="ghisvg">
+                <circle class="ghiring-bg" cx="110" cy="110" r="105"></circle>
+                <circle
+                  class="ghiring-progress"
+                  cx="110"
+                  cy="110"
+                  r="105"
+                  data-percent="85"
+                ></circle>
+              </svg>
+              <div class="ghicircle">
+                <div class="ghicontent">
+                  <div class="ghinumber-wrap">
+                    <span class="ghinumber" data-target="8">0</span>
+                    <span class="ghisuffix">K</span>
+                  </div>
+                  <div class="ghilabel">Project Completed</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="ghicard">
+            <div class="ghicircle-wrap">
+              <div class="ghidashed"></div>
+              <svg class="ghisvg">
+                <circle class="ghiring-bg" cx="110" cy="110" r="105"></circle>
+                <circle
+                  class="ghiring-progress"
+                  cx="110"
+                  cy="110"
+                  r="105"
+                  data-percent="92"
+                ></circle>
+              </svg>
+              <div class="ghicircle">
+                <div class="ghicontent">
+                  <div class="ghinumber-wrap">
+                    <span class="ghinumber" data-target="19">0</span>
+                    <span class="ghisuffix">K</span>
+                  </div>
+                  <div class="ghilabel">Happy Clients</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="jklsection">
+      <div class="jklcontainer">
+        <!-- Left Side Slider -->
+        <div class="jklleft">
+          <div class="jklcard" id="memberCard">
+            <div class="jklimg-wrap">
+              <img src="" alt="Team Member" class="jklimg" id="mainImg" />
+            </div>
+
+            <!-- Social Icons (Updated to Font Awesome) -->
+            <div class="jklsocial">
+              <a href="./404.html" class="jklicon"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="./404.html" class="jklicon"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="./404.html" class="jklicon"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="./404.html" class="jklicon"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+
+            <!-- Name Card Overlay -->
+            <div class="jklnamecard">
+              <div>
+                <div class="jklname" id="cardName">Dianne Russell</div>
+                <div class="jklrole" id="cardRole">Project Manager</div>
+              </div>
+              <div class="jkltoggle">
+                <i data-lucide="plus" size="20"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Content -->
+        <div class="jklright">
+          <!-- Arrow Controls -->
+          <div class="jklarrows">
+            <button class="jklarrow" id="prevBtn">
+              <i data-lucide="chevron-up"></i>
+            </button>
+            <button class="jklarrow" id="nextBtn">
+              <i data-lucide="chevron-down"></i>
+            </button>
+          </div>
+
+          <span class="jkllabel">Team Members</span>
+          <h2 class="jkltitle" id="mainTitle">
+            We Have An Expert Team To Help You
+          </h2>
+          <p class="jkltext" id="mainText">
+            Our team of experts combines creative thinking with technical
+            excellence to provide the best solutions for your business.
+          </p>
+
+          <!-- Thumbnails -->
+          <div class="jklthumbs" id="thumbContainer">
+            <!-- JS will populate -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="mnosection">
+      <div class="mnocontainer">
+        <div class="mnoheader">
+          <span class="mnolabel">Pricing Plan</span>
+          <h2 class="mnotitle">Choose Your Best Pricing Plan</h2>
+        </div>
+
+        <div class="mnogrid">
+          <!-- Left Blue Card -->
+          <div class="mnoleft">
+            <div class="mnotoggle">
+              <button
+                class="mnotogglebtn mnotoggleactive"
+                onclick="togglePricing('monthly')"
+              >
+                Monthly
+              </button>
+              <button class="mnotogglebtn" onclick="togglePricing('yearly')">
+                Yearly
+              </button>
+            </div>
+
+            <div class="mnolist">
+              <div class="mnolistitem">
+                <span class="mnocheck"
+                  ><i data-lucide="check" size="18"></i
+                ></span>
+                Advanced Analytics
+              </div>
+              <div class="mnolistitem">
+                <span class="mnocheck"
+                  ><i data-lucide="check" size="18"></i
+                ></span>
+                Unlimited Storage
+              </div>
+              <div class="mnolistitem">
+                <span class="mnocheck"
+                  ><i data-lucide="check" size="18"></i
+                ></span>
+                24/7 Premium Support
+              </div>
+              <div class="mnolistitem">
+                <span class="mnocross"><i data-lucide="x" size="18"></i></span>
+                Custom Branding
+              </div>
+              <div class="mnolistitem">
+                <span class="mnocross"><i data-lucide="x" size="18"></i></span>
+                API Integration
+              </div>
+            </div>
+
+            <a href="./404.html" class="mnobtn">Get Started Now</a>
+          </div>
+
+          <!-- Right Cards -->
+          <div class="mnoright">
+            <!-- Basic -->
+            <div class="mnocard">
+              <div class="mnocardinfo">
+                <h3 class="mnocardtitle">Basic Plan</h3>
+                <p class="mnocardtext">Best for individuals and small teams</p>
+              </div>
+              <div class="mnoprice" data-monthly="29" data-yearly="240">
+                $<span class="price-val">29</span
+                ><span class="mnomonth">/Month</span>
+              </div>
+            </div>
+
+            <!-- Business -->
+            <div class="mnocard">
+              <div class="mnocardinfo">
+                <h3 class="mnocardtitle">Business Plan</h3>
+                <p class="mnocardtext">Perfect for growing organizations</p>
+              </div>
+              <div class="mnoprice" data-monthly="59" data-yearly="540">
+                $<span class="price-val">59</span
+                ><span class="mnomonth">/Month</span>
+              </div>
+            </div>
+
+            <!-- Enterprise -->
+            <div class="mnocard">
+              <div class="mnocardinfo">
+                <h3 class="mnocardtitle">Enterprise Plan</h3>
+                <p class="mnocardtext">
+                  Advanced features for large corporations
+                </p>
+              </div>
+              <div class="mnoprice" data-monthly="99" data-yearly="890">
+                $<span class="price-val">99</span
+                ><span class="mnomonth">/Month</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pqrsection">
+      <div class="pqrcontainer" id="pqrMainContainer">
+        <div class="pqrheader">
+          <div class="pqrheadleft">
+            <span class="pqrlabel">Testimonial</span>
+            <h2 class="pqrtitle">What Our Clients Say<br />About Techor</h2>
+          </div>
+          <div class="pqrarrows">
+            <button class="pqrbtn" id="pqrPrev">
+              <i data-lucide="arrow-left"></i>
+            </button>
+            <button class="pqrbtn" id="pqrNext">
+              <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pqrslider">
+          <div class="pqrtrack" id="pqrTrack">
+            <!-- Testimonials -->
+            <div class="pqrcard">
+              <div class="pqrstars">
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+              </div>
+              <p class="pqrtext">
+                "Working with several word themes and templates the last years
+                only can say this is best in every level use it for my reviews
+                that I have already are company and the reviews already"
+              </p>
+              <div class="pqruser">
+                <div class="pqruserinfo">
+                  <img src="./assets/ch10.webp" alt="User" class="pqravatar" />
+                  <div>
+                    <span class="pqrname">Brenda Gregory</span>
+                    <span class="pqrrole">CEO & Owner</span>
+                  </div>
+                </div>
+                <div class="pqrquote">
+                  <i data-lucide="quote" size="18"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="pqrcard">
+              <div class="pqrstars">
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+              </div>
+              <p class="pqrtext">
+                "Exceptional quality and support. The team behind Techor really
+                understands user experience. We managed to launch our platform
+                two weeks ahead of schedule thanks to this."
+              </p>
+              <div class="pqruser">
+                <div class="pqruserinfo">
+                  <img src="./assets/ch8.webp" alt="User" class="pqravatar" />
+                  <div>
+                    <span class="pqrname">John Doe</span>
+                    <span class="pqrrole">Project Manager</span>
+                  </div>
+                </div>
+                <div class="pqrquote">
+                  <i data-lucide="quote" size="18"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="pqrcard">
+              <div class="pqrstars">
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+              </div>
+              <p class="pqrtext">
+                "A game changer for our marketing agency. The flexibility and
+                ease of use is unparalleled. I've recommended Techor to all my
+                colleagues in the tech space."
+              </p>
+              <div class="pqruser">
+                <div class="pqruserinfo">
+                  <img src="./assets/ch9.webp" alt="User" class="pqravatar" />
+                  <div>
+                    <span class="pqrname">Sarah Jenkins</span>
+                    <span class="pqrrole">Marketing Head</span>
+                  </div>
+                </div>
+                <div class="pqrquote">
+                  <i data-lucide="quote" size="18"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="pqrcard">
+              <div class="pqrstars">
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+                <i data-lucide="star" fill="currentColor" size="14"></i>
+              </div>
+              <p class="pqrtext">
+                "The best decision we made for our startup. The UI components
+                are clean, modern, and highly performant. The documentation made
+                implementation a breeze."
+              </p>
+              <div class="pqruser">
+                <div class="pqruserinfo">
+                  <img src="./assets/ch2.webp" alt="User" class="pqravatar" />
+                  <div>
+                    <span class="pqrname">Michael Smith</span>
+                    <span class="pqrrole">Lead Developer</span>
+                  </div>
+                </div>
+                <div class="pqrquote">
+                  <i data-lucide="quote" size="18"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="stusection">
+      <div class="stucontainer">
+        <!-- Left Content -->
+        <div class="stuleft">
+          <span class="stulabel">Questions</span>
+          <h2 class="stutitle">Frequently asked asked question</h2>
+          <p class="stutext">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elita florai psum
+            dolor sit amet,consectetur amet consecteture.
+          </p>
+
+          <div class="stuaccordion">
+            <!-- Item 1 -->
+            <div class="stuitem stuactive">
+              <div class="stuquestion">
+                <span>Q1. What Is The Design Process For Branding?</span>
+                <div class="stuicon" data-icon-state="minus">
+                  <i data-lucide="minus" size="18"></i>
+                </div>
+              </div>
+              <div class="stuanswer">
+                <p>
+                  If you ask our clients what it's like working 36, they'll
+                  about how much we care about their success.
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="stuitem">
+              <div class="stuquestion">
+                <span>Q2. How Much Does Logo Design Services Cost?</span>
+                <div class="stuicon" data-icon-state="plus">
+                  <i data-lucide="plus" size="18"></i>
+                </div>
+              </div>
+              <div class="stuanswer">
+                <p>
+                  Logo design costs vary depending on complexity and
+                  deliverables, but we offer transparent pricing packages
+                  tailored to your brand's specific needs.
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="stuitem">
+              <div class="stuquestion">
+                <span>Q3. How Long Will It Take To Complete My Project?</span>
+                <div class="stuicon" data-icon-state="plus">
+                  <i data-lucide="plus" size="18"></i>
+                </div>
+              </div>
+              <div class="stuanswer">
+                <p>
+                  Most branding projects take between 2 to 4 weeks, ensuring we
+                  have enough time for research, concept development, and
+                  refinements.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Content -->
+        <div class="sturight">
+          <div class="stuimagewrap">
+            <img src="./assets/in5.webp" alt="FAQ Image" class="stuimg" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Newsletter -->
+    <div class="stk-container">
+      <section class="stk-newsletter-wrapper">
+        <div class="stk-newsletter-card">
+          <h2 class="stk-newsletter-title">Subscribe to Our Newsletter</h2>
+          <form class="stk-newsletter-form" id="stk-form" action="./404.html">
+            <input
+              type="email"
+              class="stk-newsletter-input"
+              placeholder="Enter Your Email"
+              required
+            />
+            <button type="submit" class="stk-newsletter-btn">Submit Now</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="stk-footer">
+      <div class="stk-container">
+        <div class="stk-footer-grid">
+          <!-- Branding -->
+          <div class="stk-footer-col">
+            <a href="./index.html" class="stk-footer-logo-link">
+              <div class="stk-footer-logo-icon"></div>
+              STACKLY
+            </a>
+            <p class="stk-footer-about">
+              Each demo built with Teba will look different. You can customize
+              almost anything appearance of your website with only a few.
+            </p>
+            <div class="stk-footer-contact">
+              <a href="tel:1234567890" class="stk-footer-contact-item">
+                <i class="fa-solid fa-phone"></i>
+                123-456-7890
+              </a>
+              <a
+                href="mailto:techor@example.com"
+                class="stk-footer-contact-item"
+              >
+                <i class="fa-solid fa-envelope"></i>
+                techor@example.com
+              </a>
+            </div>
+          </div>
+
+          <!-- Links -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Quick Links</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./index.html" class="stk-footer-link">Home</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./about.html" class="stk-footer-link">About Us</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./service.html" class="stk-footer-link">Services</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./blog.html" class="stk-footer-link">Blogs</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./contact.html" class="stk-footer-link">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Services</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">UI/UX Design</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">App Development</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link"
+                  >Digital Marketing</a
+                >
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Web Development</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Cyber Security</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Information -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Information</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Working Process</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Privacy Policy</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link"
+                  >Terms & Conditions</a
+                >
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Faqs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="stk-footer-bottom">
+          <p class="stk-footer-copy">
+            &copy; 2026 <span>Stackly</span> All Rights Reserved, Created by
+            <span>StacklyIT</span>
+          </p>
+          <div class="stk-footer-socials">
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="stk-back-top" id="scrollTop">
+      <i class="fa-solid fa-chevron-up"></i>
+    </button>
+    <script src="./nav.js"></script>
+    <script src="./footer.js"></script>
+    <script src="./index.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+
+        const slides = document.querySelectorAll(".abcslide");
+        const dots = document.querySelectorAll(".abcdot");
+        let currentIndex = 0;
+        let isAnimating = false;
+        const intervalTime = 1500;
+
+        function animateContent(index, show = true) {
+          const slide = slides[index];
+          const title = slide.querySelector(".abctitle");
+          const text = slide.querySelector(".abctext");
+          const btn = slide.querySelector(".abcbtn");
+          const label = slide.querySelector(".abclabel");
+
+          if (show) {
+            gsap.fromTo(
+              title,
+              { y: 60, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+            );
+            gsap.fromTo(
+              text,
+              { y: 40, opacity: 0 },
+              {
+                y: 0,
+                opacity: 0.9,
+                duration: 0.8,
+                delay: 0.2,
+                ease: "power3.out",
+              },
+            );
+            gsap.fromTo(
+              btn,
+              { y: 30, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                delay: 0.3,
+                ease: "power3.out",
+              },
+            );
+            gsap.fromTo(
+              label,
+              { x: -20, opacity: 0 },
+              { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+            );
+          }
+        }
+
+        function goToSlide(nextIndex) {
+          if (nextIndex === currentIndex || isAnimating) return;
+          isAnimating = true;
+
+          // Deactivate current
+          slides[currentIndex].classList.remove("abcactive");
+          dots[currentIndex].classList.remove("abcactiveDot");
+
+          // Activate next
+          currentIndex = nextIndex;
+          slides[currentIndex].classList.add("abcactive");
+          dots[currentIndex].classList.add("abcactiveDot");
+
+          // Animate next content
+          animateContent(currentIndex);
+
+          setTimeout(() => {
+            isAnimating = false;
+          }, 800);
+        }
+
+        // Click events
+        dots.forEach((dot) => {
+          dot.addEventListener("click", () => {
+            const index = parseInt(dot.getAttribute("data-go"));
+            goToSlide(index);
+            resetAutoplay();
+          });
+        });
+
+        // Autoplay
+        let sliderInterval = setInterval(() => {
+          let next = (currentIndex + 1) % slides.length;
+          goToSlide(next);
+        }, intervalTime);
+
+        function resetAutoplay() {
+          clearInterval(sliderInterval);
+          sliderInterval = setInterval(() => {
+            let next = (currentIndex + 1) % slides.length;
+            goToSlide(next);
+          }, intervalTime);
+        }
+
+        // Initial animation for first slide
+        animateContent(0);
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+
+        const slides = document.querySelectorAll(".abcslide");
+        const dots = document.querySelectorAll(".abcdot");
+        let currentIndex = 0;
+        let isAnimating = false;
+        const intervalTime = 1500;
+
+        function animateContent(index, show = true) {
+          const slide = slides[index];
+          const title = slide.querySelector(".abctitle");
+          const text = slide.querySelector(".abctext");
+          const btn = slide.querySelector(".abcbtn");
+          const label = slide.querySelector(".abclabel");
+
+          if (show) {
+            gsap.fromTo(
+              title,
+              { y: 60, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+            );
+            gsap.fromTo(
+              text,
+              { y: 40, opacity: 0 },
+              {
+                y: 0,
+                opacity: 0.9,
+                duration: 0.8,
+                delay: 0.2,
+                ease: "power3.out",
+              },
+            );
+            gsap.fromTo(
+              btn,
+              { y: 30, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                delay: 0.3,
+                ease: "power3.out",
+              },
+            );
+            gsap.fromTo(
+              label,
+              { x: -20, opacity: 0 },
+              { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+            );
+          }
+        }
+
+        function goToSlide(nextIndex) {
+          if (nextIndex === currentIndex || isAnimating) return;
+          isAnimating = true;
+
+          // Deactivate current
+          slides[currentIndex].classList.remove("abcactive");
+          dots[currentIndex].classList.remove("abcactiveDot");
+
+          // Activate next
+          currentIndex = nextIndex;
+          slides[currentIndex].classList.add("abcactive");
+          dots[currentIndex].classList.add("abcactiveDot");
+
+          // Animate next content
+          animateContent(currentIndex);
+
+          setTimeout(() => {
+            isAnimating = false;
+          }, 800);
+        }
+
+        // Click events
+        dots.forEach((dot) => {
+          dot.addEventListener("click", () => {
+            const index = parseInt(dot.getAttribute("data-go"));
+            goToSlide(index);
+            resetAutoplay();
+          });
+        });
+
+        // Autoplay
+        let sliderInterval = setInterval(() => {
+          let next = (currentIndex + 1) % slides.length;
+          goToSlide(next);
+        }, intervalTime);
+
+        function resetAutoplay() {
+          clearInterval(sliderInterval);
+          sliderInterval = setInterval(() => {
+            let next = (currentIndex + 1) % slides.length;
+            goToSlide(next);
+          }, intervalTime);
+        }
+
+        // Initial animation for first slide
+        animateContent(0);
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Register GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Left Side Animations
+        const leftTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".defimagewrap",
+            start: "top 80%",
+          },
+        });
+
+        leftTl
+          .from(".deftallimg", {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+          })
+          .from(
+            ".defsmallimg",
+            {
+              scale: 0.9,
+              opacity: 0,
+              duration: 1,
+              ease: "power3.out",
+            },
+            "-=0.6",
+          )
+          .from(
+            ".defexpbox",
+            {
+              y: 60,
+              opacity: 0,
+              duration: 1,
+              ease: "power3.out",
+              onComplete: () => {
+                // Start the counter animation when the box is visible
+                gsap.to("#expCounter", {
+                  innerText: 25,
+                  duration: 2,
+                  snap: { innerText: 1 }, // Ensures integers only
+                  ease: "power1.inOut",
+                });
+              },
+            },
+            "-=0.7",
+          );
+
+        // Right Side Animations
+        const rightTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".defcontent",
+            start: "top 80%",
+          },
+        });
+
+        rightTl
+          .from(".deflabel", { opacity: 0, x: -20, duration: 0.6 })
+          .from(".deftitle", { opacity: 0, y: 40, duration: 0.8 }, "-=0.4")
+          .from(".deftext", { opacity: 0, y: 30, duration: 0.8 }, "-=0.6")
+          .from(
+            ".deflistitem",
+            {
+              opacity: 0,
+              x: 20,
+              stagger: 0.1,
+              duration: 0.5,
+            },
+            "-=0.4",
+          )
+          .from(
+            ".defcta",
+            {
+              opacity: 0,
+              y: 20,
+              duration: 0.8,
+              delay: 0.1,
+            },
+            "-=0.2",
+          );
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const cards = document.querySelectorAll(".ghicard");
+        const circumference = 2 * Math.PI * 105; // 2 * PI * r
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".ghigrid",
+            start: "top 75%",
+            once: true,
+          },
+        });
+
+        // 1. Staggered card entrance
+        tl.to(cards, {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 1.2,
+          stagger: 0.15,
+          ease: "expo.out",
+          startAt: { y: 60, scale: 0.8, opacity: 0 },
+        });
+
+        // 2. Animate Numbers & SVG Progress Rings
+        const counterItems = document.querySelectorAll(".ghinumber");
+        counterItems.forEach((counter) => {
+          const targetValue = parseInt(counter.getAttribute("data-target"));
+          const ring = counter
+            .closest(".ghicircle-wrap")
+            .querySelector(".ghiring-progress");
+          const percent = parseInt(ring.getAttribute("data-percent"));
+
+          // Animate Numbers
+          tl.to(
+            counter,
+            {
+              innerText: targetValue,
+              duration: 2.5,
+              snap: { innerText: 1 },
+              ease: "power2.out",
+            },
+            "-=1",
+          );
+
+          // Animate SVG Ring offset
+          const offset = circumference - (percent / 100) * circumference;
+          tl.to(
+            ring,
+            {
+              strokeDashoffset: offset,
+              duration: 2.5,
+              ease: "power2.out",
+            },
+            "-=2.5",
+          );
+        });
+
+        // 3. Initial rotate for dashed border
+        tl.from(
+          ".ghidashed",
+          {
+            rotate: -180,
+            opacity: 0,
+            duration: 2,
+            ease: "power2.out",
+            stagger: 0.1,
+          },
+          0,
+        );
+      });
+
+      const teamData = [
+        {
+          name: "Dianne Russell",
+          role: "Project Manager",
+          img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600",
+          title: "Expert Strategy & Leadership",
+          text: "Dianne brings over 10 years of experience in leading complex digital transformations for Fortune 500 companies.",
+        },
+        {
+          name: "Guy Hawkins",
+          role: "Lead Developer",
+          img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600",
+          title: "Mastering Modern Codebases",
+          text: "Guy is our technical architect who ensures every line of code is optimized for performance and security.",
+        },
+        {
+          name: "Eleanor Pena",
+          role: "UI/UX Designer",
+          img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=600",
+          title: "Creative Visual Solutions",
+          text: "Eleanor focuses on user-centric layouts that drive engagement and conversion with elegant aesthetics.",
+        },
+        {
+          name: "Jerome Bell",
+          role: "Marketing Head",
+          img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600",
+          title: "Driving Growth & Visibility",
+          text: "Jerome crafts data-driven marketing strategies that put our clients ahead of the competition.",
+        },
+      ];
+
+      let currentIndex = 0;
+      let slideInterval;
+      const AUTO_SPEED = 1500; // 1.5 seconds
+
+      const mainImg = document.getElementById("mainImg");
+      const cardName = document.getElementById("cardName");
+      const cardRole = document.getElementById("cardRole");
+      const mainTitle = document.getElementById("mainTitle");
+      const mainText = document.getElementById("mainText");
+      const thumbContainer = document.getElementById("thumbContainer");
+      const memberCard = document.getElementById("memberCard");
+
+      function init() {
+        lucide.createIcons();
+
+        // Create Thumbs
+        teamData.forEach((member, index) => {
+          const thumb = document.createElement("div");
+          thumb.className = `jklthumb ${index === 0 ? "active" : ""}`;
+          thumb.innerHTML = `<img src="${member.img}" alt="${member.name}">`;
+          thumb.onclick = () => {
+            goToSlide(index);
+            resetAutoSlide(); // Pause timer on interaction
+          };
+          thumbContainer.appendChild(thumb);
+        });
+
+        updateSlide(0, false);
+        startAutoSlide();
+
+        // Pause on hover
+        memberCard.addEventListener("mouseenter", stopAutoSlide);
+        memberCard.addEventListener("mouseleave", startAutoSlide);
+      }
+
+      function startAutoSlide() {
+        stopAutoSlide(); // Clear existing
+        slideInterval = setInterval(() => {
+          let next = (currentIndex + 1) % teamData.length;
+          updateSlide(next);
+        }, AUTO_SPEED);
+      }
+
+      function stopAutoSlide() {
+        if (slideInterval) clearInterval(slideInterval);
+      }
+
+      function resetAutoSlide() {
+        stopAutoSlide();
+        // Start again after 3 seconds of inactivity
+        setTimeout(startAutoSlide, 3000);
+      }
+
+      function updateSlide(index, animate = true) {
+        const member = teamData[index];
+        currentIndex = index;
+
+        // Update Thumbnails
+        document.querySelectorAll(".jklthumb").forEach((t, i) => {
+          t.classList.toggle("active", i === index);
+        });
+
+        if (animate) {
+          const tl = gsap.timeline();
+
+          // Image Fade & Scale
+          tl.to(mainImg, {
+            opacity: 0,
+            scale: 1.1,
+            duration: 0.3,
+            onComplete: () => {
+              mainImg.src = member.img;
+            },
+          });
+          tl.to(mainImg, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+
+          // Content Transition
+          gsap.to([cardName, cardRole, mainTitle, mainText], {
+            opacity: 0,
+            x: -20,
+            duration: 0.2,
+            stagger: 0.05,
+            onComplete: () => {
+              cardName.innerText = member.name;
+              cardRole.innerText = member.role;
+              mainTitle.innerText = member.title;
+              mainText.innerText = member.text;
+
+              gsap.to([cardName, cardRole, mainTitle, mainText], {
+                opacity: 1,
+                x: 0,
+                duration: 0.4,
+                stagger: 0.1,
+                ease: "power2.out",
+              });
+            },
+          });
+        } else {
+          mainImg.src = member.img;
+          cardName.innerText = member.name;
+          cardRole.innerText = member.role;
+          mainTitle.innerText = member.title;
+          mainText.innerText = member.text;
+        }
+      }
+
+      function goToSlide(index) {
+        if (index === currentIndex) return;
+        updateSlide(index);
+      }
+
+      document.getElementById("nextBtn").onclick = () => {
+        updateSlide((currentIndex + 1) % teamData.length);
+        resetAutoSlide();
+      };
+
+      document.getElementById("prevBtn").onclick = () => {
+        updateSlide((currentIndex - 1 + teamData.length) % teamData.length);
+        resetAutoSlide();
+      };
+
+      window.onload = init;
+
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // GSAP Reveal Animations
+      window.onload = () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Reveal Left Card
+        gsap.to(".mnoleft", {
+          scrollTrigger: {
+            trigger: ".mnogrid",
+            start: "top 80%",
+          },
+          x: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+        });
+
+        // Set Initial Left Position for Reveal
+        gsap.set(".mnoleft", { x: -60, opacity: 0 });
+        gsap.set(".mnocard", { x: 60, opacity: 0 });
+
+        // Reveal Right Cards with Stagger
+        gsap.to(".mnocard", {
+          scrollTrigger: {
+            trigger: ".mnoright",
+            start: "top 85%",
+          },
+          x: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.15,
+          ease: "power3.out",
+        });
+      };
+
+      // Pricing Toggle Logic
+      function togglePricing(type) {
+        const btns = document.querySelectorAll(".mnotogglebtn");
+        const prices = document.querySelectorAll(".mnoprice");
+        const labels = document.querySelectorAll(".mnomonth");
+
+        btns.forEach((btn) => {
+          if (btn.innerText.toLowerCase() === type) {
+            btn.classList.add("mnotoggleactive");
+          } else {
+            btn.classList.remove("mnotoggleactive");
+          }
+        });
+
+        prices.forEach((priceEl, index) => {
+          const val =
+            type === "monthly"
+              ? priceEl.dataset.monthly
+              : priceEl.dataset.yearly;
+          const label = type === "monthly" ? "/Month" : "/Year";
+
+          // Animate price change
+          const priceSpan = priceEl.querySelector(".price-val");
+          const labelSpan = priceEl.querySelector(".mnomonth");
+
+          gsap.to(priceSpan, {
+            opacity: 0,
+            y: -10,
+            duration: 0.2,
+            onComplete: () => {
+              priceSpan.innerText = val;
+              labelSpan.innerText = label;
+              gsap.to(priceSpan, { opacity: 1, y: 0, duration: 0.3 });
+            },
+          });
+        });
+      }
+
+      lucide.createIcons();
+
+      const track = document.getElementById("pqrTrack");
+      const container = document.getElementById("pqrMainContainer");
+      const prevBtn = document.getElementById("pqrPrev");
+      const nextBtn = document.getElementById("pqrNext");
+      let cards = Array.from(document.querySelectorAll(".pqrcard"));
+
+      // Create clones for infinite loop
+      const originalCount = cards.length;
+      cards.forEach((card) => {
+        const cloneBefore = card.cloneNode(true);
+        const cloneAfter = card.cloneNode(true);
+        track.appendChild(cloneAfter);
+        track.prepend(cloneBefore);
+      });
+
+      let allCards = Array.from(document.querySelectorAll(".pqrcard"));
+      let currentIndexx = originalCount;
+      let autoSlideTimer;
+
+      // Swipe support
+      let startX = 0;
+      let isDragging = false;
+      let currentTranslate = 0;
+      let prevTranslate = 0;
+
+      function getVisibleCards() {
+        if (window.innerWidth <= 768) return 1;
+        if (window.innerWidth <= 1024) return 2;
+        return 3;
+      }
+
+      function calculateCardWidth() {
+        const visible = getVisibleCards();
+        const gap = 24;
+        const containerWidth = container.offsetWidth - 40; // Account for padding
+        return (containerWidth - gap * (visible - 1)) / visible;
+      }
+
+      function updateSlider(instant = false) {
+        const cardWidth = calculateCardWidth();
+        const gap = 24;
+        const visible = getVisibleCards();
+
+        // Apply width to all cards
+        allCards.forEach((card) => {
+          card.style.width = `${cardWidth}px`;
+        });
+
+        // Center logic:
+        // We want allCards[currentIndex] to be centered.
+        // On mobile (visible=1), center is container/2 - width/2.
+        // On desktop (visible=3), the center card is the middle one of the 3 shown.
+        const containerWidth = container.offsetWidth - 40;
+        const centerOffset = containerWidth / 2 - cardWidth / 2;
+
+        const translateX = -(currentIndex * (cardWidth + gap)) + centerOffset;
+        currentTranslate = translateX;
+
+        gsap.to(track, {
+          x: translateX,
+          duration: instant ? 0 : 0.6,
+          ease: "power3.out",
+          onComplete: () => {
+            // Seamless jump logic
+            if (currentIndexx >= originalCount * 2) {
+              currentIndexx = originalCount;
+              updateSlider(true);
+            } else if (currentIndexx < originalCount) {
+              currentIndexx = originalCount * 2 - 1;
+              updateSlider(true);
+            }
+          },
+        });
+
+        // Update active class
+        allCards.forEach((card, idx) => {
+          if (idx === currentIndexx) {
+            card.classList.add("pqractive");
+          } else {
+            card.classList.remove("pqractive");
+          }
+        });
+      }
+
+      function moveNext() {
+        currentIndexx++;
+        updateSlider();
+      }
+
+      function movePrev() {
+        currentIndexx--;
+        updateSlider();
+      }
+
+      // Touch / Drag events
+      track.addEventListener(
+        "touchstart",
+        (e) => {
+          startX = e.touches[0].clientX;
+          isDragging = true;
+          clearInterval(autoSlideTimer);
+        },
+        { passive: true },
+      );
+
+      track.addEventListener(
+        "touchmove",
+        (e) => {
+          if (!isDragging) return;
+          const currentX = e.touches[0].clientX;
+          const diff = currentX - startX;
+          gsap.set(track, { x: currentTranslate + diff });
+        },
+        { passive: true },
+      );
+
+      track.addEventListener("touchend", (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        const endX = e.changedTouches[0].clientX;
+        const diff = endX - startX;
+
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) movePrev();
+          else moveNext();
+        } else {
+          updateSlider();
+        }
+        startTimer();
+      });
+
+      // Button events
+      nextBtn.addEventListener("click", () => {
+        moveNext();
+        resetTimer();
+      });
+      prevBtn.addEventListener("click", () => {
+        movePrev();
+        resetTimer();
+      });
+
+      function startTimer() {
+        clearInterval(autoSlideTimer);
+        autoSlideTimer = setInterval(moveNext, 4000);
+      }
+
+      function resetTimer() {
+        clearInterval(autoSlideTimer);
+        startTimer();
+      }
+
+      window.onload = () => {
+        updateSlider(true);
+        startTimer();
+        window.addEventListener("resize", () => updateSlider(true));
+      };
+
+      // Pause on hover for desktop
+      track.addEventListener("mouseenter", () => clearInterval(autoSlideTimer));
+      track.addEventListener("mouseleave", startTimer);
+
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // Accordion Logic
+      const accordionItems = document.querySelectorAll(".stuitem");
+
+      accordionItems.forEach((item) => {
+        const question = item.querySelector(".stuquestion");
+
+        question.addEventListener("click", () => {
+          const isActive = item.classList.contains("stuactive");
+
+          // Close all items
+          accordionItems.forEach((otherItem) => {
+            otherItem.classList.remove("stuactive");
+            const otherIcon = otherItem.querySelector(".stuicon");
+            otherIcon.innerHTML = `<i data-lucide="plus" size="18"></i>`;
+          });
+
+          // Toggle clicked item
+          if (!isActive) {
+            item.classList.add("stuactive");
+            const icon = item.querySelector(".stuicon");
+            icon.innerHTML = `<i data-lucide="minus" size="18"></i>`;
+          }
+
+          // Refresh icons for the newly injected HTML
+          lucide.createIcons();
+        });
+      });
+
+      // GSAP Reveal Animations
+      gsap.registerPlugin(ScrollTrigger);
+
+      const mainTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".stusection",
+          start: "top 80%",
+          ease: "power3.out",
+        },
+      });
+
+      // Left content sequence
+      mainTl.from(".stulabel, .stutitle, .stutext", {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power3.out",
+      });
+
+      // Accordion sequence
+      mainTl.from(
+        ".stuitem",
+        {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+        },
+        "-=0.6",
+      );
+
+      // Right image sequence
+      mainTl.from(
+        ".stuimagewrap",
+        {
+          x: 40,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=1.2",
+      );
+    </script>
+  </body>
+</html>

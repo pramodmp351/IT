@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Stackly - Create Secure Account</title>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      :root {
+        --lrm-blue-primary: #3b5cff;
+        --lrm-blue-gradient-end: #5b74ff;
+        --lrm-card-gradient-end: #2f46d9;
+        --lrm-dark-blue: #0b1c4a;
+        --lrm-btn-dark: #071a66;
+        --lrm-btn-hover: #061454;
+        --lrm-text-gray: #6c7a9c;
+        --lrm-bg-light: #f5f7fb;
+        --lrm-white: #ffffff;
+        --lrm-transition: 0.3s ease;
+        --lrm-glass-bg: rgba(255, 255, 255, 0.12);
+        --lrm-glass-border: rgba(255, 255, 255, 0.25);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body,
+      html {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        /* background-color: var(--lrm-dark-blue); */
+      }
+
+      /* Full Screen Background Wrapper */
+      .lrm-signup-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 16px;
+      }
+
+      .lrm-bg-img {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+        opacity: 0;
+      }
+
+      .lrm-bg-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(11, 28, 74, 0.45),
+          rgba(11, 28, 74, 0.8)
+        );
+        z-index: -1;
+      }
+
+      /* Glass Signup Card */
+      .lrm-signup-card {
+        position: relative;
+        width: 100%;
+        max-width: 460px;
+        background: var(--lrm-glass-bg);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--lrm-glass-border);
+        border-radius: 28px;
+        padding: 40px;
+        box-shadow:
+          0 30px 60px -12px rgba(0, 0, 0, 0.5),
+          inset 0 0 20px rgba(255, 255, 255, 0.05);
+        opacity: 0;
+        transform: scale(0.92);
+        z-index: 10;
+      }
+
+      /* Close Icon */
+      .lrm-close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 36px;
+        height: 36px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: var(--lrm-white);
+        transition: var(--lrm-transition);
+      }
+
+      /* Branding */
+      .lrm-header {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .lrm-title {
+        color: var(--lrm-white);
+        font-size: clamp(24px, 6vw, 32px);
+        font-weight: 900;
+        letter-spacing: 3px;
+        margin-bottom: 4px;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .lrm-subtitle {
+        color: rgba(255, 255, 255, 0.75);
+        font-size: clamp(11px, 3vw, 13px);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Form Styling */
+      .lrm-form-group {
+        position: relative;
+        margin-bottom: 16px;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .lrm-label {
+        display: block;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 12px;
+        margin-bottom: 2px;
+        font-weight: 600;
+      }
+
+      .lrm-input-field {
+        position: relative;
+        display: flex;
+        align-items: center;
+        border-bottom: 1.5px solid rgba(255, 255, 255, 0.25);
+        transition: var(--lrm-transition);
+      }
+
+      .lrm-input-field:focus-within {
+        border-bottom-color: var(--lrm-white);
+      }
+
+      .lrm-input,
+      .lrm-role-select {
+        width: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        padding: 10px 0;
+        color: var(--lrm-white);
+        font-size: 15px;
+        border-radius: 0;
+      }
+
+      .lrm-role-select {
+        cursor: pointer;
+        appearance: none;
+        padding-right: 30px;
+      }
+
+      .lrm-role-select option {
+        background-color: #1a2a5a;
+        color: white;
+      }
+
+      .lrm-icon-right {
+        color: rgba(255, 255, 255, 0.6);
+        margin-left: 10px;
+        pointer-events: none;
+      }
+
+      /* Agreement Row */
+      .lrm-form-options {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        font-size: 13px;
+        color: var(--lrm-white);
+        opacity: 0;
+      }
+
+      .lrm-checkbox-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 8px;
+        padding: 4px 0;
+      }
+
+      .lrm-checkbox {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+        position: relative;
+        transition: var(--lrm-transition);
+      }
+
+      .lrm-checkbox:checked {
+        background: var(--lrm-blue-primary);
+        border-color: var(--lrm-blue-primary);
+      }
+
+      .lrm-checkbox:checked::after {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 11px;
+        font-weight: bold;
+      }
+
+      /* Signup Button */
+      .lrm-signup-btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 14px;
+        background: linear-gradient(
+          135deg,
+          var(--lrm-btn-dark),
+          var(--lrm-card-gradient-end)
+        );
+        color: var(--lrm-white);
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition:
+          transform 0.2s,
+          filter 0.2s;
+      }
+
+      /* Footer */
+      .lrm-footer {
+        text-align: center;
+        margin-top: 24px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        opacity: 0;
+      }
+
+      .lrm-login-link {
+        color: var(--lrm-white);
+        text-decoration: none;
+        font-weight: 700;
+        margin-left: 4px;
+        display: inline-block;
+      }
+
+      /* Mobile Adjustments */
+      @media (max-width: 480px) {
+        .lrm-signup-card {
+          padding: 30px 24px;
+          border-radius: 24px;
+        }
+        .lrm-form-group {
+          margin-bottom: 12px;
+        }
+      }
+
+      /* Handle short screens (landscape mobile) */
+      @media (max-height: 700px) {
+        .lrm-signup-wrapper {
+          height: auto;
+          min-height: 100vh;
+          padding: 40px 16px;
+          overflow-y: auto;
+        }
+        .lrm-signup-card {
+          margin: auto;
+        }
+        body,
+        html {
+          overflow: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lrm-signup-wrapper">
+      <img src="./assets/login.webp" alt="Forest" class="lrm-bg-img" />
+      <div class="lrm-bg-overlay"></div>
+
+      <div class="lrm-signup-card" id="signupCard">
+        <button class="lrm-close-btn" id="closeBtn">
+          <i data-lucide="x" size="18"></i>
+        </button>
+
+        <header class="lrm-header">
+          <h1 class="lrm-title">STACKLY</h1>
+          <p class="lrm-subtitle">Create Secure Account</p>
+        </header>
+
+        <form id="lrmSignupForm">
+          <!-- Role -->
+          <div class="lrm-form-group">
+            <label class="lrm-label">Role</label>
+            <div class="lrm-input-field">
+              <select id="role" class="lrm-role-select" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="Admin">Admin</option>
+                <option value="Client">Client</option>
+              </select>
+              <i
+                data-lucide="chevron-down"
+                class="lrm-icon-right"
+                size="18"
+              ></i>
+            </div>
+          </div>
+
+          <!-- Full Name -->
+          <div class="lrm-form-group">
+            <label class="lrm-label">Full Name</label>
+            <div class="lrm-input-field">
+              <input
+                type="text"
+                id="fullname"
+                class="lrm-input"
+                placeholder="John Doe"
+                required
+              />
+              <i data-lucide="user" class="lrm-icon-right" size="18"></i>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="lrm-form-group">
+            <label class="lrm-label">Email</label>
+            <div class="lrm-input-field">
+              <input
+                type="email"
+                id="email"
+                class="lrm-input"
+                placeholder="name@company.com"
+                required
+              />
+              <i data-lucide="mail" class="lrm-icon-right" size="18"></i>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="lrm-form-group">
+            <label class="lrm-label">Password</label>
+            <div class="lrm-input-field">
+              <input
+                type="password"
+                id="password"
+                class="lrm-input"
+                placeholder="••••••••"
+                required
+              />
+              <i data-lucide="lock" class="lrm-icon-right" size="18"></i>
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="lrm-form-group">
+            <label class="lrm-label">Confirm Password</label>
+            <div class="lrm-input-field">
+              <input
+                type="password"
+                id="confirmPassword"
+                class="lrm-input"
+                placeholder="••••••••"
+                required
+              />
+              <i
+                data-lucide="shield-check"
+                class="lrm-icon-right"
+                size="18"
+              ></i>
+            </div>
+          </div>
+
+          <div class="lrm-form-options">
+            <label class="lrm-checkbox-container">
+              <input type="checkbox" class="lrm-checkbox" required />
+              I agree to the terms and conditions
+            </label>
+          </div>
+
+          <button type="submit" class="lrm-signup-btn" id="signupBtn">
+            Create Account
+          </button>
+        </form>
+
+        <footer class="lrm-footer">
+          Already have an account?
+          <a href="./login.html" class="lrm-login-link">Login</a>
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const signupCard = document.getElementById("signupCard");
+        const bgImg = document.querySelector(".lrm-bg-img");
+        const signupForm = document.getElementById("lrmSignupForm");
+        const signupBtn = document.getElementById("signupBtn");
+        const closeBtn = document.getElementById("closeBtn");
+
+        // --- GSAP Animations ---
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        tl.to(bgImg, { opacity: 1, duration: 1.5 })
+          .to(signupCard, { opacity: 1, scale: 1, duration: 0.8 }, "-=1")
+          .to(
+            ".lrm-form-group",
+            { opacity: 1, y: 0, stagger: 0.06, duration: 0.6 },
+            "-=0.4",
+          )
+          .to(".lrm-form-options", { opacity: 1, duration: 0.4 }, "-=0.2")
+          .to(".lrm-signup-btn", { opacity: 1, duration: 0.4 }, "-=0.2")
+          .to(".lrm-footer", { opacity: 1, duration: 0.4 }, "-=0.1");
+
+        // Float Animation
+        gsap.to(signupCard, {
+          y: "-=6",
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        // Interactions
+        closeBtn.addEventListener("mouseenter", () =>
+          gsap.to(closeBtn, { rotate: 90, duration: 0.4 }),
+        );
+        closeBtn.addEventListener("mouseleave", () =>
+          gsap.to(closeBtn, { rotate: 0, duration: 0.4 }),
+        );
+
+        const animatePress = () =>
+          gsap.to(signupBtn, {
+            scale: 0.97,
+            filter: "brightness(0.9)",
+            duration: 0.1,
+          });
+        const animateRelease = () =>
+          gsap.to(signupBtn, {
+            scale: 1,
+            filter: "brightness(1)",
+            duration: 0.2,
+          });
+
+        signupBtn.addEventListener("mousedown", animatePress);
+        signupBtn.addEventListener("mouseup", animateRelease);
+        signupBtn.addEventListener("touchstart", animatePress);
+        signupBtn.addEventListener("touchend", animateRelease);
+
+        // --- Form Logic ---
+        signupForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const role = document.getElementById("role").value;
+          const name = document.getElementById("fullname").value;
+          const email = document.getElementById("email").value;
+          const pass = document.getElementById("password").value;
+          const confirmPass = document.getElementById("confirmPassword").value;
+
+          if (pass !== confirmPass) {
+            gsap.to("#confirmPassword", {
+              x: [-10, 10, -10, 0],
+              duration: 0.4,
+            });
+            return;
+          }
+
+          // Store in localStorage
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              role: role,
+              name: name,
+              email: email,
+            }),
+          );
+
+          signupBtn.innerText = "Creating Account...";
+          gsap.to(signupCard, { opacity: 0, scale: 0.9, duration: 0.5 });
+
+          setTimeout(() => {
+            if (role === "Admin") {
+              window.location.href = "login.html";
+            } else {
+              window.location.href = "login.html";
+            }
+          }, 600);
+        });
+
+        // Input focus effect
+        document.querySelectorAll(".lrm-input").forEach((input) => {
+          input.addEventListener("focus", () => {
+            gsap.to(input.parentElement, {
+              borderBottomColor: "#ffffff",
+              duration: 0.3,
+            });
+          });
+          input.addEventListener("blur", () => {
+            if (!input.value)
+              gsap.to(input.parentElement, {
+                borderBottomColor: "rgba(255, 255, 255, 0.25)",
+                duration: 0.3,
+              });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

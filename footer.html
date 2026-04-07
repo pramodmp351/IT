@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Techor - Newsletter & Footer</title>
+    <!-- Google Fonts: Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --stk-primary: #3d5afe;
+        --stk-primary-dark: #304ffe;
+        --stk-bg-footer: #0b1b5e;
+        --stk-text-muted: #cbd5ff;
+        --stk-white: #ffffff;
+        --stk-social-bg: #162775;
+        --stk-transition: 0.3s ease;
+      }
+
+      /* RESET & BASE */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: #f0f2f5;
+        overflow-x: hidden;
+      }
+
+      .stk-container {
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* --- NEWSLETTER SECTION (MOBILE FIRST) --- */
+      .stk-newsletter-wrapper {
+        position: relative;
+        z-index: 10;
+        margin-bottom: -110px;
+        transform: translateY(60px);
+      }
+
+      .stk-newsletter-card {
+        background: linear-gradient(90deg, #3d5afe, #304ffe);
+        border-radius: 28px; /* Default for mobile */
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .stk-newsletter-title {
+        color: var(--stk-white);
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+      }
+
+      .stk-newsletter-form {
+        display: flex;
+        flex-direction: column; /* Stacked on mobile */
+        width: 100%;
+        gap: 10px;
+      }
+
+      .stk-newsletter-input {
+        background: #e5e7eb;
+        border: none;
+        height: 56px;
+        padding: 0 20px;
+        font-size: 14px;
+        outline: none;
+        border-radius: 8px; /* Full radius on mobile */
+        width: 100%;
+        color: #333;
+      }
+
+      .stk-newsletter-btn {
+        background: var(--stk-primary);
+        color: var(--stk-white);
+        height: 56px;
+        padding: 0 30px;
+        border: 2px solid white;
+        border-radius: 8px; /* Full radius on mobile */
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: var(--stk-transition);
+        width: 100%;
+      }
+
+      /* --- FOOTER SECTION (MOBILE FIRST) --- */
+      .stk-footer {
+        background-color: var(--stk-bg-footer);
+        /* Increased mobile top padding to 200px to prevent logo touching the card */
+        padding: 200px 0 30px;
+        color: var(--stk-white);
+      }
+
+      .stk-footer-grid {
+        display: grid;
+        grid-template-columns: 1fr; /* Single column on mobile */
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+
+      .stk-footer-logo-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: white;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .stk-footer-logo-icon {
+        width: 38px;
+        height: 38px;
+        background: var(--stk-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .stk-footer-logo-icon::after {
+        content: "";
+        width: 16px;
+        height: 16px;
+        background: white;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      }
+
+      .stk-footer-about {
+        color: var(--stk-text-muted);
+        line-height: 1.8;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      .stk-footer-contact {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .stk-footer-contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--stk-text-muted);
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .stk-footer-contact-item i {
+        color: var(--stk-primary);
+      }
+
+      .stk-footer-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        color: var(--stk-white);
+      }
+
+      .stk-footer-links {
+        list-style: none;
+      }
+
+      .stk-footer-link-item {
+        margin-bottom: 12px;
+      }
+
+      .stk-footer-link {
+        color: var(--stk-text-muted);
+        text-decoration: none;
+        transition: var(--stk-transition);
+        font-size: 14px;
+        display: inline-block;
+      }
+
+      .stk-footer-link:hover {
+        color: var(--stk-white);
+        transform: translateX(4px);
+      }
+
+      /* --- FOOTER BOTTOM (MOBILE FIRST) --- */
+      .stk-footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        text-align: center;
+      }
+
+      .stk-footer-copy {
+        color: var(--stk-text-muted);
+        font-size: 13px;
+      }
+
+      .stk-footer-copy span:first-child {
+        color: var(--stk-primary);
+      }
+      .stk-footer-copy span:last-child {
+        color: #3d5afe;
+      }
+
+      .stk-footer-socials {
+        display: flex;
+        gap: 10px;
+      }
+
+      .stk-footer-social-btn {
+        width: 40px;
+        height: 40px;
+        background: #ffffff;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0b1b5e;
+        text-decoration: none;
+        transition: var(--stk-transition);
+      }
+
+      .stk-footer-social-btn:hover {
+        background: var(--stk-primary);
+        color: white;
+      }
+
+      /* Back to top */
+      .stk-back-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 38px;
+        height: 38px;
+        background: var(--stk-primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        z-index: 100;
+        display: none; /* Hidden initially */
+      }
+
+      /* --- DESKTOP QUERIES (768px+) --- */
+      @media (min-width: 768px) {
+        .stk-newsletter-card {
+          flex-direction: row;
+          text-align: left;
+          padding: 60px;
+          border-radius: 28px 28px 120px 28px;
+        }
+
+        .stk-newsletter-title {
+          font-size: 42px;
+          max-width: 450px;
+        }
+
+        .stk-newsletter-form {
+          flex-direction: row;
+          gap: 0;
+          width: auto;
+          max-width: none;
+        }
+
+        .stk-newsletter-input {
+          width: 320px;
+          border-radius: 8px 0 0 8px;
+        }
+
+        .stk-newsletter-btn {
+          width: auto;
+          border-radius: 0 8px 8px 0;
+          border-left: none;
+        }
+
+        .stk-footer {
+          /* Keep desktop padding consistent */
+          padding: 200px 0 30px;
+        }
+
+        .stk-footer-grid {
+          grid-template-columns: 1.2fr 1fr 1fr 1fr;
+          gap: 60px;
+        }
+
+        .stk-footer-bottom {
+          flex-direction: row;
+          justify-content: space-between;
+          text-align: left;
+        }
+
+        .stk-back-top {
+          bottom: 30px;
+          right: 30px;
+          width: 42px;
+          height: 42px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Newsletter -->
+    <div class="stk-container">
+      <section class="stk-newsletter-wrapper">
+        <div class="stk-newsletter-card">
+          <h2 class="stk-newsletter-title">Subscribe to Our Newsletter</h2>
+          <form class="stk-newsletter-form" id="stk-form" action="./404.html">
+            <input
+              type="email"
+              class="stk-newsletter-input"
+              placeholder="Enter Your Email"
+              required
+            />
+            <button type="submit" class="stk-newsletter-btn">Submit Now</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="stk-footer">
+      <div class="stk-container">
+        <div class="stk-footer-grid">
+          <!-- Branding -->
+          <div class="stk-footer-col">
+            <a href="./index.html" class="stk-footer-logo-link">
+              <div class="stk-footer-logo-icon"></div>
+              STACKLY
+            </a>
+            <p class="stk-footer-about">
+              Each demo built with Teba will look different. You can customize
+              almost anything appearance of your website with only a few.
+            </p>
+            <div class="stk-footer-contact">
+              <a href="tel:1234567890" class="stk-footer-contact-item">
+                <i class="fa-solid fa-phone"></i>
+                123-456-7890
+              </a>
+              <a
+                href="mailto:techor@example.com"
+                class="stk-footer-contact-item"
+              >
+                <i class="fa-solid fa-envelope"></i>
+                techor@example.com
+              </a>
+            </div>
+          </div>
+
+          <!-- Links -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Quick Links</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./index.html" class="stk-footer-link">Home</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./about.html" class="stk-footer-link">About Us</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./service.html" class="stk-footer-link">Services</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./blog.html" class="stk-footer-link">Blogs</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./contact.html" class="stk-footer-link">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Services</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">UI/UX Design</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">App Development</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link"
+                  >Digital Marketing</a
+                >
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Web Development</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Cyber Security</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Information -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Information</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Working Process</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Privacy Policy</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link"
+                  >Terms & Conditions</a
+                >
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Faqs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="stk-footer-bottom">
+          <p class="stk-footer-copy">
+            &copy; 2026 <span>Stackly</span> All Rights Reserved, Created by
+            <span>StacklyIT</span>
+          </p>
+          <div class="stk-footer-socials">
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="stk-back-top" id="scrollTop">
+      <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <script>
+      const scrollBtn = document.getElementById("scrollTop");
+      window.onscroll = () => {
+        if (window.pageYOffset > 300) {
+          scrollBtn.style.display = "flex";
+        } else {
+          scrollBtn.style.display = "none";
+        }
+      };
+
+      scrollBtn.onclick = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      //   document.getElementById("stk-form").onsubmit = (e) => {
+      //     e.preventDefault();
+      //     const btn = e.target.querySelector("button");
+      //     const originalText = btn.innerText;
+      //     btn.innerText = "Sent!";
+      //     setTimeout(() => {
+      //       btn.innerText = originalText;
+      //     }, 3000);
+      //     e.target.reset();
+      //   };
+    </script>
+  </body>
+</html>

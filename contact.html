@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - stackly IT Solution Agency</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- GSAP Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./footer.css" />
+    <style>
+      :root {
+        --lrm-blue-primary: #3b5cff;
+        --lrm-blue-gradient-end: #5b74ff;
+        --lrm-card-gradient-end: #2f46d9;
+        --lrm-dark-blue: #0b1c4a;
+        --lrm-btn-dark: #071a66;
+        --lrm-btn-hover: #061454;
+        --lrm-text-gray: #6c7a9c;
+        --lrm-bg-light: #f5f7fb;
+        --lrm-white: #ffffff;
+        --lrm-transition: 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+        outline: none;
+      }
+
+      body {
+        background-color: var(--lrm-white);
+        color: var(--lrm-dark-blue);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- Hero Section --- */
+      .lrm-hero {
+        position: relative;
+        height: 260px;
+        background-image: url("./assets/hero.webp");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 70px 0;
+      }
+
+      .lrm-hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 30, 110, 0.88);
+        z-index: 1;
+      }
+
+      .lrm-hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 0 20px;
+      }
+
+      .lrm-hero-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--lrm-white);
+        letter-spacing: -1px;
+        margin: 0;
+      }
+
+      .lrm-breadcrumb {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.85);
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      /* --- Location Cards Section --- */
+      .lrm-locations-section {
+        background: var(--lrm-white);
+        padding: 60px 0 0 0;
+        margin-bottom: -40px; /* Overlap slightly with the gray section */
+        position: relative;
+        z-index: 10;
+      }
+
+      .lrm-locations-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+      }
+
+      @media (min-width: 640px) {
+        .lrm-locations-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .lrm-locations-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .lrm-location-card {
+        background: var(--lrm-white);
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid #eee;
+        position: relative;
+        overflow: hidden;
+        /* cursor: pointer; */
+      }
+
+      .lrm-location-flag {
+        font-size: 40px;
+        margin-bottom: 15px;
+        display: block;
+      }
+
+      .lrm-location-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--lrm-dark-blue);
+        margin-bottom: 5px;
+        transition: opacity 0.3s;
+      }
+
+      .lrm-location-hover-info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--lrm-blue-primary);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        transform: translateY(100%);
+        transition: all 0.4s ease;
+      }
+
+      .lrm-location-card:hover .lrm-location-hover-info {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .lrm-location-address {
+        font-size: 14px;
+        line-height: 1.4;
+        font-weight: 500;
+      }
+
+      /* --- Contact Section --- */
+      .lrm-contact-section {
+        background-color: var(--lrm-bg-light);
+        padding: 100px 0 70px 0;
+      }
+
+      .lrm-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .lrm-contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      /* Left Side */
+      .lrm-contact-left {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .lrm-small-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--lrm-blue-primary);
+        margin-bottom: 18px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .lrm-main-heading {
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--lrm-dark-blue);
+        margin-bottom: 20px;
+      }
+
+      .lrm-paragraph {
+        font-size: 16px;
+        color: var(--lrm-text-gray);
+        line-height: 1.8;
+        margin-bottom: 10px;
+      }
+
+      .lrm-info-item {
+        display: flex;
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .lrm-info-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        background: linear-gradient(
+          135deg,
+          var(--lrm-blue-primary),
+          var(--lrm-blue-gradient-end)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--lrm-white);
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+
+      .lrm-info-content-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--lrm-dark-blue);
+        margin-bottom: 6px;
+      }
+
+      .lrm-info-desc {
+        font-size: 15px;
+        color: var(--lrm-text-gray);
+        line-height: 1.6;
+      }
+
+      /* Right Form Card */
+      .lrm-contact-right {
+        width: 100%;
+      }
+
+      .lrm-contact-card {
+        background: linear-gradient(
+          135deg,
+          var(--lrm-blue-primary),
+          var(--lrm-card-gradient-end)
+        );
+        border-radius: 20px;
+        padding: 28px;
+        width: 100%;
+        box-shadow: 0 15px 35px rgba(59, 92, 255, 0.2);
+      }
+
+      .lrm-form-title {
+        font-size: 30px;
+        font-weight: 700;
+        color: var(--lrm-white);
+        margin-bottom: 6px;
+      }
+
+      .lrm-form-subtitle {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 25px;
+      }
+
+      .lrm-contact-form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .lrm-contact-input {
+        width: 100%;
+        height: 54px;
+        border-radius: 12px 12px 12px 28px;
+        border: none;
+        padding: 0 16px;
+        font-size: 15px;
+        background: var(--lrm-white);
+        margin-bottom: 16px;
+        color: var(--lrm-dark-blue);
+      }
+
+      .lrm-contact-input::placeholder {
+        color: #999;
+      }
+
+      .lrm-contact-textarea {
+        height: 140px;
+        padding-top: 14px;
+        resize: none;
+      }
+
+      .lrm-contact-btn {
+        height: 50px;
+        padding: 0 24px;
+        background: var(--lrm-btn-dark);
+        color: var(--lrm-white);
+        border: none;
+        border-radius: 12px 12px 12px 28px;
+        font-weight: 600;
+        font-size: 15px;
+        margin-top: 8px;
+        cursor: pointer;
+        transition: var(--lrm-transition);
+        align-self: flex-start;
+      }
+
+      .lrm-contact-btn:hover {
+        background: var(--lrm-btn-hover);
+        transform: translateY(-2px);
+      }
+
+      /* --- Map Section --- */
+      .lrm-map-container {
+        width: 100%;
+        height: 480px;
+        margin: 0;
+        padding: 0;
+        line-height: 0;
+      }
+
+      .lrm-map-iframe {
+        border: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* --- Desktop Responsive --- */
+      @media (min-width: 1024px) {
+        .lrm-hero {
+          height: 320px;
+          padding: 120px 0;
+        }
+
+        .lrm-hero-title {
+          font-size: 64px;
+        }
+
+        .lrm-contact-section {
+          padding: 120px 0;
+        }
+
+        .lrm-contact-grid {
+          grid-template-columns: 1fr 520px;
+          gap: 60px;
+          align-items: flex-start;
+        }
+
+        .lrm-main-heading {
+          font-size: 42px;
+        }
+
+        .lrm-paragraph {
+          max-width: 420px;
+        }
+
+        .lrm-contact-card {
+          padding: 40px;
+          border-radius: 28px;
+          border-bottom-right-radius: 40px; /* Extra rounded per spec */
+        }
+      }
+
+      /* Classes for GSAP Initial States (prevents flash) */
+      .gsap-reveal {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body id="lrm-page-body">
+    <!-- Overlay -->
+    <div class="xyz-overlay" id="xyzOverlay"></div>
+
+    <!-- Top Bar -->
+    <div class="xyz-topbar">
+      <div class="xyz-topbar-left">
+        <a href="./404.html" class="xyz-topbar-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>(00) 875 784 5682</span>
+        </a>
+        <div class="xyz-divider"></div>
+        <a href="./404.html" class="xyz-topbar-item">
+          <i class="fas fa-envelope"></i>
+          <span>stackly@gmail.com</span>
+        </a>
+      </div>
+      <div class="xyz-topbar-right">
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </div>
+    </div>
+
+    <!-- Header / Main Nav -->
+    <header class="xyz-header">
+      <a href="./index.html" class="xyz-logo-block">
+        <svg
+          class="xyz-logo-icon-svg"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="20" cy="20" r="20" fill="white" fill-opacity="0.2" />
+          <path
+            d="M20 5L23.5 16.5L35 20L23.5 23.5L20 35L16.5 23.5L5 20L16.5 16.5L20 5Z"
+            fill="white"
+          />
+        </svg>
+        <span class="xyz-logo-text">STACKLY</span>
+      </a>
+
+      <nav class="xyz-navbar-menu">
+        <a href="./index.html" class="xyz-nav-link">HOME</a>
+        <a href="./about.html" class="xyz-nav-link">ABOUT US</a>
+        <a href="./service.html" class="xyz-nav-link">SERVICES</a>
+        <!-- <a href="#" class="xyz-nav-link">Pages</a> -->
+        <a href="./blog.html" class="xyz-nav-link">BLOGS</a>
+        <a href="./contact.html" class="xyz-nav-link">CONTACT</a>
+      </nav>
+
+      <div class="xyz-navbar-actions">
+        <a href="./login.html" class="xyz-cta-btn">LOGIN</a>
+        <button class="xyz-hamburger" id="xyzHamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Sidebar Right Panel -->
+    <aside class="xyz-sidebar" id="xyzSidebar">
+      <div class="xyz-sidebar-inner">
+        <div class="xyz-sidebar-header">
+          <a
+            href="./index.html"
+            style="display: flex; align-items: center; text-decoration: none"
+          >
+            <svg
+              class="xyz-logo-icon-svg"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="20" cy="20" r="20" fill="white" fill-opacity="0.2" />
+              <path
+                d="M20 5L23.5 16.5L35 20L23.5 23.5L20 35L16.5 23.5L5 20L16.5 16.5L20 5Z"
+                fill="white"
+              />
+            </svg>
+            <span class="xyz-logo-text">STACKLY</span>
+          </a>
+          <i class="fas fa-times xyz-sidebar-close" id="xyzSidebarClose"></i>
+        </div>
+
+        <p class="xyz-sidebar-desc">
+          Suspendisse interdum consectetur libero id. Fermentum leo vel orci
+          porta non. Euismod viverra nibh cras pulvinar suspen.
+        </p>
+
+        <div class="xyz-sidebar-menu-list">
+          <a href="./index.html" class="xyz-sidebar-menu-item">
+            <span>HOME</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <a
+            href="./about.html"
+            class="xyz-sidebar-menu-item"
+            style="color: var(--xyz-blue-primary)"
+          >
+            <span>ABOUT US</span>
+          </a>
+          <a href="./service.html" class="xyz-sidebar-menu-item">
+            <span>SERVICES</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <!-- <a href="#" class="xyz-sidebar-menu-item">
+            <span>Pages</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a> -->
+          <a href="./blog.html" class="xyz-sidebar-menu-item">
+            <span>BLOG</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <a href="./contact.html" class="xyz-sidebar-menu-item">
+            <span>CONTACT</span>
+          </a>
+        </div>
+
+        <div class="xyz-sidebar-contact-section">
+          <h3 class="xyz-sidebar-contact-title">Get In Touch</h3>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Email</p>
+              <a href="mailto:hello@yourmail.com" class="xyz-contact-info-value"
+                >hello@yourmail.com</a
+              >
+            </div>
+          </div>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Phone</p>
+              <p class="xyz-contact-info-value">(00) 456 1122 7890</p>
+            </div>
+          </div>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Location</p>
+              <p class="xyz-contact-info-value">
+                Riverside 255, San Francisco, USA
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <!-- Hero Section -->
+    <section class="lrm-hero" id="lrm-hero-section">
+      <div class="lrm-hero-overlay"></div>
+      <div class="lrm-hero-content">
+        <h1 class="lrm-hero-title gsap-reveal">Contact</h1>
+        <div class="lrm-breadcrumb gsap-reveal">
+          <span>Home</span>
+          <i
+            class="fas fa-chevron-right"
+            style="font-size: 12px; opacity: 0.6"
+          ></i>
+          <span>Contact</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location Cards Section -->
+    <section class="lrm-locations-section" id="lrm-locations">
+      <div class="lrm-container">
+        <div class="lrm-locations-grid">
+          <!-- USA -->
+          <div class="lrm-location-card gsap-reveal">
+            <span class="lrm-location-flag">🇺🇸</span>
+            <h4 class="lrm-location-name">United States</h4>
+            <div class="lrm-location-hover-info">
+              <i class="fas fa-map-marker-alt" style="margin-bottom: 10px"></i>
+              <p class="lrm-location-address">
+                255 Riverside, San Francisco, CA 94107
+              </p>
+            </div>
+          </div>
+          <!-- UK -->
+          <div class="lrm-location-card gsap-reveal">
+            <span class="lrm-location-flag">🇬🇧</span>
+            <h4 class="lrm-location-name">United Kingdom</h4>
+            <div class="lrm-location-hover-info">
+              <i class="fas fa-map-marker-alt" style="margin-bottom: 10px"></i>
+              <p class="lrm-location-address">
+                10-12 Upper St. Martin's Lane, London
+              </p>
+            </div>
+          </div>
+          <!-- Germany -->
+          <div class="lrm-location-card gsap-reveal">
+            <span class="lrm-location-flag">🇩🇪</span>
+            <h4 class="lrm-location-name">Germany</h4>
+            <div class="lrm-location-hover-info">
+              <i class="fas fa-map-marker-alt" style="margin-bottom: 10px"></i>
+              <p class="lrm-location-address">
+                Kurfürstendamm 21, 10719 Berlin
+              </p>
+            </div>
+          </div>
+          <!-- Japan -->
+          <div class="lrm-location-card gsap-reveal">
+            <span class="lrm-location-flag">🇯🇵</span>
+            <h4 class="lrm-location-name">Japan</h4>
+            <div class="lrm-location-hover-info">
+              <i class="fas fa-map-marker-alt" style="margin-bottom: 10px"></i>
+              <p class="lrm-location-address">
+                Shibuya-ku, 2-21-1 Shibuya, Tokyo
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Appointment Section -->
+    <section class="lrm-contact-section" id="lrm-contact-main">
+      <div class="lrm-container">
+        <div class="lrm-contact-grid">
+          <!-- Left Side: Content & Info -->
+          <div class="lrm-contact-left">
+            <span class="lrm-small-title gsap-reveal">Contact Us</span>
+            <h2 class="lrm-main-heading gsap-reveal">
+              Let's Build an Awesome Project Together
+            </h2>
+            <p class="lrm-paragraph gsap-reveal">
+              Each demo built with Teba will look different. You can customize
+              almost anything in the appearance of your website with only a few
+              clicks.
+            </p>
+
+            <!-- Info Items -->
+            <div class="lrm-info-item gsap-reveal">
+              <div class="lrm-info-icon">
+                <i class="fas fa-thumbs-up"></i>
+              </div>
+              <div class="lrm-info-content">
+                <h4 class="lrm-info-content-title">350+ Projects Done</h4>
+                <p class="lrm-info-desc">
+                  From banking and insurance to wealth management and security
+                  on there
+                </p>
+              </div>
+            </div>
+
+            <div class="lrm-info-item gsap-reveal">
+              <div class="lrm-info-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="lrm-info-content">
+                <h4 class="lrm-info-content-title">500+ Happy Clients</h4>
+                <p class="lrm-info-desc">
+                  From banking and insurance to wealth management and security
+                  on there
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Side: Form Card -->
+          <div class="lrm-contact-right">
+            <div class="lrm-contact-card gsap-reveal">
+              <h3 class="lrm-form-title">Make an Appointment</h3>
+              <p class="lrm-form-subtitle">
+                Feel free to contact with us, we don't spam your email
+              </p>
+
+              <form
+                class="lrm-contact-form"
+                id="lrm-appointment-form"
+                action="./404.html"
+              >
+                <input
+                  type="text"
+                  class="lrm-contact-input"
+                  placeholder="Full Name *"
+                  required
+                />
+                <input
+                  type="email"
+                  class="lrm-contact-input"
+                  placeholder="Email Here *"
+                  required
+                />
+                <select
+                  class="lrm-contact-input"
+                  style="appearance: none; cursor: pointer"
+                  required
+                >
+                  <option value="" disabled selected>Select Service *</option>
+                  <option value="it">IT Consulting</option>
+                  <option value="web">Web Development</option>
+                  <option value="cloud">Cloud Services</option>
+                </select>
+                <textarea
+                  class="lrm-contact-input lrm-contact-textarea"
+                  placeholder="Your Message *"
+                  required
+                ></textarea>
+                <button type="submit" class="lrm-contact-btn">
+                  Submit Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Google Map Section -->
+    <section class="lrm-map-container" id="lrm-map-section">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1715694283125!5m2!1sen!2sin"
+        class="lrm-map-iframe"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      >
+      </iframe>
+    </section>
+    <!-- Newsletter -->
+    <div class="stk-container">
+      <section class="stk-newsletter-wrapper">
+        <div class="stk-newsletter-card">
+          <h2 class="stk-newsletter-title">Subscribe to Our Newsletter</h2>
+          <form class="stk-newsletter-form" id="stk-form" action="./404.html">
+            <input
+              type="email"
+              class="stk-newsletter-input"
+              placeholder="Enter Your Email"
+              required
+            />
+            <button type="submit" class="stk-newsletter-btn">Submit Now</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="stk-footer">
+      <div class="stk-container">
+        <div class="stk-footer-grid">
+          <!-- Branding -->
+          <div class="stk-footer-col">
+            <a href="./index.html" class="stk-footer-logo-link">
+              <div class="stk-footer-logo-icon"></div>
+              STACKLY
+            </a>
+            <p class="stk-footer-about">
+              Each demo built with Teba will look different. You can customize
+              almost anything appearance of your website with only a few.
+            </p>
+            <div class="stk-footer-contact">
+              <a href="tel:1234567890" class="stk-footer-contact-item">
+                <i class="fa-solid fa-phone"></i>
+                123-456-7890
+              </a>
+              <a
+                href="mailto:techor@example.com"
+                class="stk-footer-contact-item"
+              >
+                <i class="fa-solid fa-envelope"></i>
+                techor@example.com
+              </a>
+            </div>
+          </div>
+
+          <!-- Links -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Quick Links</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./index.html" class="stk-footer-link">Home</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./about.html" class="stk-footer-link">About Us</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./service.html" class="stk-footer-link">Services</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./blog.html" class="stk-footer-link">Blogs</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./contact.html" class="stk-footer-link">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Services</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">UI/UX Design</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">App Development</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link"
+                  >Digital Marketing</a
+                >
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Web Development</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Cyber Security</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Information -->
+          <div class="stk-footer-col">
+            <h3 class="stk-footer-title">Information</h3>
+            <ul class="stk-footer-links">
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Working Process</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Privacy Policy</a>
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link"
+                  >Terms & Conditions</a
+                >
+              </li>
+              <li class="stk-footer-link-item">
+                <a href="./404.html" class="stk-footer-link">Faqs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="stk-footer-bottom">
+          <p class="stk-footer-copy">
+            &copy; 2026 <span>Stackly</span> All Rights Reserved, Created by
+            <span>StacklyIT</span>
+          </p>
+          <div class="stk-footer-socials">
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-twitter"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="./404.html" class="stk-footer-social-btn"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="stk-back-top" id="scrollTop">
+      <i class="fa-solid fa-chevron-up"></i>
+    </button>
+    <script src="./nav.js"></script>
+    <script src="./footer.js"></script>
+    <script>
+      // GSAP Animations
+      window.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Animations
+        gsap.fromTo(
+          ".lrm-hero-title",
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.2 },
+        );
+        gsap.fromTo(
+          ".lrm-breadcrumb",
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.4 },
+        );
+
+        // Location Cards Animation
+        gsap.fromTo(
+          ".lrm-location-card",
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: ".lrm-locations-grid",
+              start: "top 90%",
+            },
+          },
+        );
+
+        // Contact Section Text Animations
+        gsap.fromTo(
+          ".lrm-contact-left .gsap-reveal",
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".lrm-contact-left",
+              start: "top 85%",
+            },
+          },
+        );
+
+        // Staggered Info Items
+        gsap.fromTo(
+          ".lrm-info-item",
+          { x: -30, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.3,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: ".lrm-info-item",
+              start: "top 90%",
+            },
+          },
+        );
+
+        // Form Card Animation
+        gsap.fromTo(
+          ".lrm-contact-card",
+          { scale: 0.9, opacity: 0, y: 50 },
+          {
+            scale: 1,
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: ".lrm-contact-card",
+              start: "top 80%",
+            },
+          },
+        );
+      });
+
+      // Form feedback
+      const form = document.getElementById("lrm-appointment-form");
+      form.addEventListener("submit", () => {
+        const btn = form.querySelector(".lrm-contact-btn");
+        const originalText = btn.innerText;
+        btn.innerText = "Sending...";
+        btn.disabled = true;
+
+        setTimeout(() => {
+          btn.innerText = "Message Sent!";
+          btn.style.background = "#28a745";
+          form.reset();
+
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "";
+            btn.disabled = false;
+          }, 3000);
+        }, 1500);
+      });
+    </script>
+  </body>
+</html>

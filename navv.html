@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Techor - IT Solution Agency Navbar</title>
+    <!-- Font Awesome for exact icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts: Inter/Poppins style -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --xyz-blue-primary: #2b59ff;
+        --xyz-blue-secondary: #3f6bff;
+        --xyz-dark-blue: #0c1e4a;
+        --xyz-sidebar-bg: #0d1b5e;
+        --xyz-text-gray: #666;
+        --xyz-border-light: #e5e5e5;
+        --xyz-border-medium: #dcdcdc;
+        --xyz-topbar-bg: #f4f4f4;
+        --xyz-transition: 0.4s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      /* --- Top Bar --- */
+      .xyz-topbar {
+        height: 44px;
+        background: var(--xyz-topbar-bg);
+        border-bottom: 1px solid var(--xyz-border-light);
+        display: none; /* Mobile hidden */
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+      }
+
+      @media (min-width: 1024px) {
+        .xyz-topbar {
+          display: flex;
+        }
+      }
+
+      .xyz-topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        font-size: 14px;
+        color: var(--xyz-dark-blue);
+      }
+
+      .xyz-topbar-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .xyz-topbar-item i {
+        color: var(--xyz-blue-primary);
+      }
+
+      .xyz-divider {
+        width: 1px;
+        height: 20px;
+        background: var(--xyz-border-medium);
+      }
+
+      .xyz-topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .xyz-social-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 1px solid #cfcfcf;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--xyz-dark-blue);
+        font-size: 14px;
+        text-decoration: none;
+        transition: var(--xyz-transition);
+      }
+
+      .xyz-social-icon:hover {
+        background: var(--xyz-blue-primary);
+        color: white;
+        border-color: var(--xyz-blue-primary);
+      }
+
+      /* --- Main Navbar --- */
+      .xyz-header {
+        height: 70px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      @media (min-width: 1024px) {
+        .xyz-header {
+          height: 90px;
+        }
+      }
+
+      /* Logo Block */
+      .xyz-logo-block {
+        width: 200px;
+        background: linear-gradient(
+          90deg,
+          var(--xyz-blue-primary),
+          var(--xyz-blue-secondary)
+        );
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        text-decoration: none;
+      }
+
+      @media (min-width: 1024px) {
+        .xyz-logo-block {
+          width: 260px;
+          padding-left: 40px;
+        }
+      }
+
+      .xyz-logo-icon-svg {
+        width: 38px;
+        height: 38px;
+      }
+
+      .xyz-logo-text {
+        font-size: 24px;
+        font-weight: 700;
+        color: white;
+        margin-left: 10px;
+      }
+
+      @media (min-width: 1024px) {
+        .xyz-logo-text {
+          font-size: 28px;
+        }
+      }
+
+      /* Center Menu */
+      .xyz-navbar-menu {
+        display: none;
+        align-items: center;
+        gap: 38px;
+      }
+
+      @media (min-width: 1024px) {
+        .xyz-navbar-menu {
+          display: flex;
+        }
+      }
+
+      .xyz-nav-link {
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--xyz-dark-blue);
+        display: flex;
+        align-items: center;
+        transition: color 0.3s;
+      }
+
+      .xyz-nav-link:hover {
+        color: var(--xyz-blue-primary);
+      }
+
+      /* Actions Right */
+      .xyz-navbar-actions {
+        display: flex;
+        align-items: center;
+        padding-right: 20px;
+      }
+
+      @media (min-width: 1024px) {
+        .xyz-navbar-actions {
+          padding-right: 40px;
+        }
+      }
+
+      /* Fixed Button Shape to match design exactly */
+      .xyz-cta-btn {
+        display: none;
+        height: 54px;
+        padding: 0 34px;
+        border-radius: 12px 12px 12px 28px; /* Changed to pill shape per design */
+        background: linear-gradient(
+          90deg,
+          var(--xyz-blue-primary),
+          var(--xyz-blue-secondary)
+        );
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+
+        cursor: pointer;
+        margin-right: 20px;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: transform 0.2s;
+      }
+
+      .xyz-cta-btn:active {
+        transform: scale(0.98);
+      }
+
+      @media (min-width: 1024px) {
+        .xyz-cta-btn {
+          display: flex;
+        }
+      }
+
+      .xyz-hamburger {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        border: 1px solid var(--xyz-border-medium);
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--xyz-dark-blue);
+        font-size: 20px;
+        transition: var(--xyz-transition);
+      }
+
+      .xyz-hamburger:hover {
+        background: #f8f8f8;
+        border-color: var(--xyz-blue-primary);
+      }
+
+      /* --- Sidebar Right Panel --- */
+      .xyz-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1999;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.4s;
+      }
+
+      .xyz-sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        max-width: 420px;
+        height: 100vh;
+        background: var(--xyz-sidebar-bg);
+        z-index: 2000;
+        transform: translateX(100%);
+        transition: var(--xyz-transition);
+        overflow-y: auto;
+      }
+
+      body.xyz-sidebar-open .xyz-sidebar {
+        transform: translateX(0);
+      }
+
+      body.xyz-sidebar-open .xyz-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .xyz-sidebar-inner {
+        padding: 40px;
+      }
+
+      .xyz-sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+
+      .xyz-sidebar-close {
+        font-size: 24px;
+        color: white;
+        opacity: 0.7;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .xyz-sidebar-close:hover {
+        opacity: 1;
+      }
+
+      .xyz-sidebar-desc {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .xyz-sidebar-menu-list {
+        list-style: none;
+      }
+
+      .xyz-sidebar-menu-item {
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.3s;
+        text-decoration: none;
+      }
+
+      .xyz-sidebar-menu-item:hover {
+        color: var(--xyz-blue-primary);
+      }
+
+      .xyz-sidebar-arrow-box {
+        width: 32px;
+        height: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+      }
+
+      .xyz-sidebar-contact-section {
+        margin-top: 40px;
+      }
+
+      .xyz-sidebar-contact-title {
+        font-size: 22px;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 30px;
+      }
+
+      .xyz-contact-card {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 26px;
+      }
+
+      .xyz-contact-icon-circle {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--xyz-blue-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .xyz-contact-info-label {
+        font-size: 14px;
+        color: #bfc7ff;
+        margin-bottom: 4px;
+      }
+
+      .xyz-contact-info-value {
+        font-size: 16px;
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      /* Content spacing for demo */
+      .xyz-hero-mock {
+        height: 600px;
+        background: #f8f9ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="xyz-body">
+    <!-- Overlay -->
+    <div class="xyz-overlay" id="xyzOverlay"></div>
+
+    <!-- Top Bar -->
+    <div class="xyz-topbar">
+      <div class="xyz-topbar-left">
+        <a href="./404.html" class="xyz-topbar-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>(00) 875 784 5682</span>
+        </a>
+        <div class="xyz-divider"></div>
+        <a href="./404.html" class="xyz-topbar-item">
+          <i class="fas fa-envelope"></i>
+          <span>stackly@gmail.com</span>
+        </a>
+      </div>
+      <div class="xyz-topbar-right">
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+        <a href="./404.html" class="xyz-social-icon"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </div>
+    </div>
+
+    <!-- Header / Main Nav -->
+    <header class="xyz-header">
+      <a href="./index.html" class="xyz-logo-block">
+        <svg
+          class="xyz-logo-icon-svg"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="20" cy="20" r="20" fill="white" fill-opacity="0.2" />
+          <path
+            d="M20 5L23.5 16.5L35 20L23.5 23.5L20 35L16.5 23.5L5 20L16.5 16.5L20 5Z"
+            fill="white"
+          />
+        </svg>
+        <span class="xyz-logo-text">STACKLY</span>
+      </a>
+
+      <nav class="xyz-navbar-menu">
+        <a href="./index.html" class="xyz-nav-link">HOME</a>
+        <a href="./about.html" class="xyz-nav-link">ABOUT US</a>
+        <a href="./service.html" class="xyz-nav-link">SERVICES</a>
+        <!-- <a href="#" class="xyz-nav-link">Pages</a> -->
+        <a href="./blog.html" class="xyz-nav-link">BLOGS</a>
+        <a href="./contact.html" class="xyz-nav-link">CONTACT</a>
+      </nav>
+
+      <div class="xyz-navbar-actions">
+        <a href="./login.html" class="xyz-cta-btn">LOGIN</a>
+        <button class="xyz-hamburger" id="xyzHamburger">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Sidebar Right Panel -->
+    <aside class="xyz-sidebar" id="xyzSidebar">
+      <div class="xyz-sidebar-inner">
+        <div class="xyz-sidebar-header">
+          <a
+            href="./index.html"
+            style="display: flex; align-items: center; text-decoration: none"
+          >
+            <svg
+              class="xyz-logo-icon-svg"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="20" cy="20" r="20" fill="white" fill-opacity="0.2" />
+              <path
+                d="M20 5L23.5 16.5L35 20L23.5 23.5L20 35L16.5 23.5L5 20L16.5 16.5L20 5Z"
+                fill="white"
+              />
+            </svg>
+            <span class="xyz-logo-text">STACKLY</span>
+          </a>
+          <i class="fas fa-times xyz-sidebar-close" id="xyzSidebarClose"></i>
+        </div>
+
+        <p class="xyz-sidebar-desc">
+          Suspendisse interdum consectetur libero id. Fermentum leo vel orci
+          porta non. Euismod viverra nibh cras pulvinar suspen.
+        </p>
+
+        <div class="xyz-sidebar-menu-list">
+          <a href="./index.html" class="xyz-sidebar-menu-item">
+            <span>HOME</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <a
+            href="./about.html"
+            class="xyz-sidebar-menu-item"
+            style="color: var(--xyz-blue-primary)"
+          >
+            <span>ABOUT US</span>
+          </a>
+          <a href="./service.html" class="xyz-sidebar-menu-item">
+            <span>SERVICES</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <!-- <a href="#" class="xyz-sidebar-menu-item">
+            <span>Pages</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a> -->
+          <a href="./blog.html" class="xyz-sidebar-menu-item">
+            <span>BLOG</span>
+            <div class="xyz-sidebar-arrow-box">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+          <a href="./contact.html" class="xyz-sidebar-menu-item">
+            <span>CONTACT</span>
+          </a>
+        </div>
+
+        <div class="xyz-sidebar-contact-section">
+          <h3 class="xyz-sidebar-contact-title">Get In Touch</h3>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Email</p>
+              <a href="mailto:hello@yourmail.com" class="xyz-contact-info-value"
+                >hello@yourmail.com</a
+              >
+            </div>
+          </div>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Phone</p>
+              <p class="xyz-contact-info-value">(00) 456 1122 7890</p>
+            </div>
+          </div>
+
+          <div class="xyz-contact-card">
+            <div class="xyz-contact-icon-circle">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <p class="xyz-contact-info-label">Location</p>
+              <p class="xyz-contact-info-value">
+                Riverside 255, San Francisco, USA
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- <section class="xyz-hero-mock">
+      <div>
+        <h1
+          style="
+            color: var(--xyz-dark-blue);
+            font-size: 2.5rem;
+            font-weight: 800;
+          "
+        >
+          IT Solution Agency
+        </h1>
+        <p style="color: #666; margin-top: 15px">
+          Responsive Header System Updated
+        </p>
+      </div>
+    </section> -->
+
+    <script>
+      const hamburgerBtn = document.getElementById("xyzHamburger");
+      const sidebarCloseBtn = document.getElementById("xyzSidebarClose");
+      const overlay = document.getElementById("xyzOverlay");
+      const body = document.body;
+
+      function openSidebar() {
+        body.classList.add("xyz-sidebar-open");
+      }
+
+      function closeSidebar() {
+        body.classList.remove("xyz-sidebar-open");
+      }
+
+      hamburgerBtn.addEventListener("click", openSidebar);
+      sidebarCloseBtn.addEventListener("click", closeSidebar);
+      overlay.addEventListener("click", closeSidebar);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeSidebar();
+      });
+    </script>
+  </body>
+</html>
